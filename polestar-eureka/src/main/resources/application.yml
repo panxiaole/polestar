@@ -1,0 +1,19 @@
+server:
+  port: ${eureka.server.port}
+
+spring:
+  security:
+    user:
+      name: ${eureka.server.username}
+      password: ${eureka.server.password}
+
+eureka:
+  instance:
+    hostname: ${eureka.server.hostname}
+  client:
+    # 是否从EurekaServer获取注册信息,单节点时不需要同步其他的EurekaServer节点的数据，置为false，集群置为true
+    fetch-registry: ${eureka.server.fetch-registry}
+    # 是否将自己注册在EurekaServer上,单节点时由于当前应用就是EurekaServer，置为false，集群置为true
+    register-with-eureka: ${eureka.server.register-with-eureka}
+    serviceUrl:
+      defaultZone: ${eureka.server.zone}

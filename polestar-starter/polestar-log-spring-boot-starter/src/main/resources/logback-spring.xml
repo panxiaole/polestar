@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 日志级别从低到高分为TRACE < DEBUG < INFO < WARN < ERROR < FATAL，如果设置为WARN，则低于WARN的信息都不会输出 -->
+<!-- scan:当此属性设置为true时，配置文档如果发生改变，将会被重新加载，默认值为true -->
+<!-- scanPeriod:设置监测配置文档是否有修改的时间间隔，如果没有给出时间单位，默认单位是毫秒。当scan为true时，此属性生效。默认的时间间隔为1分钟。 -->
+<!-- debug:当此属性设置为true时，将打印出logback内部日志信息，实时查看logback运行状态。默认值为false。 -->
+<configuration scan="true" scanPeriod="60 seconds" debug="false">
+	<!--======================================= 本地变量 ======================================== -->
+	<!--应用名称 请将spring.application.name定义在bootstrap.yml中,否则在项目启动时无法获取值-->
+	<springProperty name="APP_NAME" scope="context" source="spring.application.name" defaultValue="polestar"/>
+	<springProperty name="LOG_MAX_HISTORY" scope="context" source="log.max.history" defaultValue="30" />
+	<springProperty name="LOG_MAX_FILE_SIZE" scope="context" source="log.max.file.size" defaultValue="50MB" />
+	<springProperty name="LOG_HOME" scope="context" source="log.home" defaultValue="${HOME}/logs/${APP_NAME}/" />
+	<springProperty name="LOG_CHARSET" scope="context" source="log.charset" defaultValue="UTF-8" />
+	<springProperty name="LOG_LEVEL_DEV" scope="context" source="log.level.DEV" defaultValue="INFO" />
+	<springProperty name="LOG_LEVEL_PROD" scope="context" source="log.level.prod" defaultValue="WARN" />
+
+	<!-- ===========================彩色日志依赖的渲染类============================================ -->
+	<conversionRule conversionWord="clr" converterClass="org.springframework.boot.logging.logback.ColorConverter"/>
+	<conversionRule conversionWord="wex" converterClass="org.springframework.boot.logging.logback.WhitespaceThrowableProxyConverter"/>
+	<conversionRule conversionWord="wEx" converterClass="org.springframework.boot.logging.logback.ExtendedWhitespaceThrowableProxyConverter"/>
+	<!-- 彩色日志格式 -->
+	<property name="CONSOLE_LOG_PATTERN" value="${CONSOLE_LOG_PATTERN:-%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr(${PID:- }){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}}"/>
+	<property name="FILE_LOG_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{500} - %msg%n"/>
+
+	<!--=========================== 按照每天生成日志文件：默认配置=================================== -->
+	<!-- 控制台输出 -->
+	<appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+		<!--此日志appender是为开发使用，只配置最底级别，控制台输出的日志级别是大于或等于此级别的日志信息-->
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+			<level>debug</level>
+		</filter>
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符 -->
+			<pattern>${CONSOLE_LOG_PATTERN}</pattern>
+			<charset>${LOG_CHARSET}</charset>
+		</encoder>
+	</appender>
+
+	<!-- 按照每天生成日志文件：主项目日志 -->
+	<appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${LOG_HOME}/${APP_NAME}.log</file>
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符 -->
+			<pattern>${FILE_LOG_PATTERN}</pattern>
+			<charset>${LOG_CHARSET}</charset>
+		</encoder>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<!--日志文件输出的文件名 -->
+			<FileNamePattern>${LOG_HOME}/${APP_NAME}-%d{yyyy-MM-dd}.%i.log</FileNamePattern>
+			<timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>${LOG_MAX_FILE_SIZE}</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+			<!--日志文件保留天数 -->
+			<MaxHistory>${LOG_MAX_HISTORY}</MaxHistory>
+		</rollingPolicy>
+	</appender>
+
+	<!--业务日志埋点-->
+	<appender name="POINT" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${LOG_HOME}/${APP_NAME}-point.log</file>
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>INFO</level>
+		</filter>
+		<encoder>
+			<pattern>%d{yyyy-MM-dd HH:mm:ss}|${APP_NAME}|%msg%n</pattern>
+			<charset>${LOG_CHARSET}</charset>
+		</encoder>
+		<!-- 基于时间的分包策略 -->
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${LOG_HOME}/${APP_NAME}-point.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+			<!--保留时间,单位:天-->
+			<maxHistory>${LOG_MAX_HISTORY}</maxHistory>
+			<timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>${LOG_MAX_FILE_SIZE}</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+	</appender>
+
+	<appender name="POINT_ASYNC" class="ch.qos.logback.classic.AsyncAppender">
+		<discardingThreshold>0</discardingThreshold>
+		<appender-ref ref="POINT"/>
+	</appender>
+
+	<!--=============================== 日志输出: 默认主业务日志 ====================================== -->
+	<logger name="com.haier" level="INFO" />
+	<logger name="org.springframework" level="WARN" />
+	<logger name="freemarker" level="WARN" />
+	<logger name="org.hibernate.SQL" level="DEBUG" />
+	<logger name="com.haier.polestar.starter.log.util" level="INFO" addtivity="false">
+		<appender-ref ref="POINT_ASYNC" />
+	</logger>
+
+	<springProfile name="dev,test">
+		<root level="${LOG_LEVEL_DEV}">
+			<appender-ref ref="CONSOLE" />
+			<appender-ref ref="FILE" />
+		</root>
+	</springProfile>
+
+	<springProfile name="prod">
+		<root level="${LOG_LEVEL_PROD}">
+			<appender-ref ref="CONSOLE" />
+			<appender-ref ref="FILE" />
+		</root>
+	</springProfile>
+
+</configuration>
