@@ -13,5 +13,9 @@
     <artifactId>polestar-monitor</artifactId>
     <description>监控模块汇总</description>
 
+    <modules>
+        <module>polestar-admin-ui</module>
+        <module>polestar-hystrix-dashboard</module>
+    </modules>
 
 </project>

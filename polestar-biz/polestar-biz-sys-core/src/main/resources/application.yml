@@ -22,11 +22,10 @@ spring:
         instance:
           prefer-ip: true
 
-# Eureka\u914D\u7F6E
+# Eureka配置
 eureka:
   instance:
     instance-id: ${spring.application.name}
-    #\u8BBF\u95EE\u8DEF\u5F84\u53EF\u4EE5\u663E\u793AIP\u5730\u5740
     prefer-ip-address: true
   client:
     fetch-registry: true
@@ -34,21 +33,21 @@ eureka:
     service-url:
       defaultZone: ${eureka.server.zone}
 
-# actuator\u76D1\u63A7
+# actuator监控
 management:
   server:
-    #actuator\u7AEF\u53E3
+    # actuator端口
     port: ${server.port}
   endpoints:
     web:
-      #\u4FEE\u6539\u8BBF\u95EE\u8DEF\u5F84  2.0\u4E4B\u524D\u9ED8\u8BA4\u662F/   2.0\u9ED8\u8BA4\u662F /actuator  \u53EF\u4EE5\u901A\u8FC7\u8FD9\u4E2A\u5C5E\u6027\u503C\u4FEE\u6539
+      #修改访问路径  2.0之前默认是/   2.0默认是 /actuator  可以通过这个属性值修改
       base-path: /actuator
       exposure:
-        #\u5F00\u653E\u6240\u6709\u9875\u9762\u8282\u70B9  \u9ED8\u8BA4\u53EA\u5F00\u542F\u4E86health\u3001info\u4E24\u4E2A\u8282\u70B9
+        #开放所有页面节点  默认只开启了health、info两个节点
         include: '*'
   endpoint:
     health:
-      #\u663E\u793A\u5065\u5EB7\u5177\u4F53\u4FE1\u606F  \u9ED8\u8BA4\u4E0D\u4F1A\u663E\u793A\u8BE6\u7EC6\u4FE1\u606F
+      #显示健康具体信息  默认不会显示详细信息
       show-details: always
 
 # Mybatis-plus
@@ -63,5 +62,5 @@ mybatis-plus:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
   global-config:
     db-config:
-      logic-delete-value: 1 # \u903B\u8F91\u5DF2\u5220\u9664\u503C(\u9ED8\u8BA4\u4E3A 1)
-      logic-not-delete-value: 0 # \u903B\u8F91\u672A\u5220\u9664\u503C(\u9ED8\u8BA4\u4E3A 0)
+      logic-delete-value: 1 # 逻辑已删除值(默认为 1)
+      logic-not-delete-value: 0 # 逻辑未删除值(默认为 0)

@@ -1,4 +1,4 @@
-package com.haier.polestar.admin.config;
+package com.haier.polestar.monitor.admin.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -6,6 +6,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 
 /**
  * 安全配置
+ *
  * @author panxiaole
  * @date 2019-05-06
  */

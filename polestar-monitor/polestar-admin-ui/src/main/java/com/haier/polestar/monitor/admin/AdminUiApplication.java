@@ -1,4 +1,4 @@
-package com.haier.polestar.admin;
+package com.haier.polestar.monitor.admin;
 
 import de.codecentric.boot.admin.server.config.EnableAdminServer;
 import org.springframework.boot.SpringApplication;
