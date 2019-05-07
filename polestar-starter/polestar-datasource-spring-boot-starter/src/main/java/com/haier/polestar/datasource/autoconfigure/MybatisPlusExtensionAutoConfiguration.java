@@ -1,10 +1,10 @@
-package com.haier.polestar.starter.datasource.autoconfigure;
+package com.haier.polestar.datasource.autoconfigure;
 
 import com.baomidou.mybatisplus.extension.incrementer.OracleKeyGenerator;
 import com.baomidou.mybatisplus.extension.plugins.OptimisticLockerInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.PerformanceInterceptor;
-import com.haier.polestar.starter.datasource.handler.DateMetaObjectHandler;
+import com.haier.polestar.datasource.handler.DateMetaObjectHandler;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;

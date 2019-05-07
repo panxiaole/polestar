@@ -11,7 +11,7 @@
     <packaging>jar</packaging>
 
     <artifactId>polestar-biz-sys-core</artifactId>
-    <description>${pom.artifactId}</description>
+    <description>系统配置模块业务实现</description>
 
     <dependencies>
         <dependency>

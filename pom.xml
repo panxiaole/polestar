@@ -84,6 +84,22 @@
                 <artifactId>jul-to-slf4j</artifactId>
                 <version>${over-slf4j.version}</version>
             </dependency>
+            <!--mybatis plus-->
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-boot-starter</artifactId>
+                <version>${mybatis-plus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-extension</artifactId>
+                <version>${mybatis-plus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-annotation</artifactId>
+                <version>${mybatis-plus.version}</version>
+            </dependency>
 
             <!--project modules-->
             <dependency>
@@ -114,6 +130,11 @@
             <dependency>
                 <groupId>com.haier</groupId>
                 <artifactId>polestar-biz-sys-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.haier</groupId>
+                <artifactId>polestar-datasource-base</artifactId>
                 <version>${project.version}</version>
             </dependency>
         </dependencies>

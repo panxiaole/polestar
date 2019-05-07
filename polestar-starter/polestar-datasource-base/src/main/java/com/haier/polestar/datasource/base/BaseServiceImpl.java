@@ -1,7 +1,6 @@
-package com.haier.polestar.starter.datasource.base;
+package com.haier.polestar.datasource.base;
 
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.TableInfo;
 import com.baomidou.mybatisplus.core.toolkit.ExceptionUtils;
 import com.baomidou.mybatisplus.core.toolkit.ReflectionKit;
@@ -21,7 +20,7 @@ import java.util.Objects;
  * @author panxiaole
  * @date 2019/1/10
  */
-public class BaseServiceImpl<M extends BaseMapper<T>, T> extends ServiceImpl<M, T> implements IBaseService<T> {
+public class BaseServiceImpl<M extends BaseMapper<T>, T> extends ServiceImpl<M, T> implements BaseService<T> {
     /**
      * 幂等性新增记录
      * 例子如下：

@@ -17,6 +17,7 @@
     <modules>
         <module>polestar-log-spring-boot-starter</module>
         <module>polestar-datasource-spring-boot-starter</module>
+        <module>polestar-datasource-base</module>
     </modules>
 
 

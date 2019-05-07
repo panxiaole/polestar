@@ -1,4 +1,4 @@
-package com.haier.polestar.starter.datasource.handler;
+package com.haier.polestar.datasource.handler;
 
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import org.apache.ibatis.reflection.MetaObject;

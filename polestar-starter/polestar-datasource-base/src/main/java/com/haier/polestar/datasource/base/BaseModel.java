@@ -1,4 +1,4 @@
-package com.haier.polestar.starter.datasource.base;
+package com.haier.polestar.datasource.base;
 
 import com.baomidou.mybatisplus.annotation.*;
 import com.baomidou.mybatisplus.extension.activerecord.Model;

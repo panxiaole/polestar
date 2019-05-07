@@ -1,4 +1,4 @@
-package com.haier.polestar.starter.datasource.base;
+package com.haier.polestar.datasource.base;
 
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.extension.service.IService;
@@ -10,7 +10,7 @@ import com.haier.polestar.common.lock.DistributedLock;
  * @author panxiaole
  * @date 2019-04-20
  */
-public interface IBaseService<T> extends IService<T> {
+public interface BaseService<T> extends IService<T> {
     /**
      * 幂等性新增记录
      *
