@@ -1,0 +1,4 @@
+# 应用名一定要定义在bootstrap.yml中,否则日志配置文件无法读取该值
+spring:
+  application:
+    name: polestar-biz-sys

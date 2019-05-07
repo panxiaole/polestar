@@ -111,6 +111,11 @@
                 <artifactId>polestar-common</artifactId>
                 <version>${project.version}</version>
             </dependency>
+            <dependency>
+                <groupId>com.haier</groupId>
+                <artifactId>polestar-biz-sys-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
