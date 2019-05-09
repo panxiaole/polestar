@@ -1,0 +1,6 @@
+server:
+  port: ${hyxtrix.dashboard.server.port}
+
+spring:
+  application:
+    name: hyxtrix-dashboard

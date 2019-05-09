@@ -14,8 +14,8 @@
     <description>监控模块汇总</description>
 
     <modules>
-        <module>polestar-admin-ui</module>
-        <module>polestar-hystrix-dashboard</module>
+        <module>polestar-monitor-springboot-admin</module>
+        <module>polestar-monitor-hystrix-dashboard</module>
     </modules>
 
 </project>
