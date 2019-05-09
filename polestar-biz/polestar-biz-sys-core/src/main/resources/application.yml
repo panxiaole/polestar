@@ -1,10 +1,10 @@
 server:
-  port: 0
+  port: 8888
 
 spring:
   # datasource
   datasource:
-    url: jdbc:mysql://127.0.0.1:3306/seed?autoReconnect=true&useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&autoReconnectForPools=true&serverTimezone=GMT%2B8
+    url: jdbc:mysql://127.0.0.1:3306/polestar-biz-sys?autoReconnect=true&useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&autoReconnectForPools=true&serverTimezone=GMT%2B8
     username: root
     password: welcome
     driver-class-name: com.mysql.cj.jdbc.Driver

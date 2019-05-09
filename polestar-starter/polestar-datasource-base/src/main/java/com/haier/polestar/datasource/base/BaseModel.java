@@ -40,14 +40,13 @@ public abstract class BaseModel extends Model {
 	/**
 	 * 创建时间
 	 */
-	@TableField(value = "CREATED_TIME", fill = FieldFill.INSERT)
-	protected Date createdTime;
+	@TableField(value = "CREATE_TIME", fill = FieldFill.INSERT)
+	protected Date createTime;
 
 	/**
 	 * 最后修改时间
 	 */
 	@TableField(value = "UPDATE_TIME", fill = FieldFill.INSERT_UPDATE)
 	protected Date updateTime;
-
 
 }

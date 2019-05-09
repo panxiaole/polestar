@@ -1,5 +1,6 @@
 package com.haier.polestar.biz.sys.model;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.haier.polestar.datasource.base.BaseModel;
 import lombok.AllArgsConstructor;
@@ -18,8 +19,13 @@ import lombok.experimental.Accessors;
 @NoArgsConstructor
 @AllArgsConstructor
 @Accessors(chain = true)
-@EqualsAndHashCode(callSuper = true)
+@EqualsAndHashCode(callSuper = false)
 @TableName("sys_user")
-public class User extends BaseModel{
+public class User extends BaseModel {
+
+	@TableField("USERNAME")
+	private String username;
+	@TableField("PASSWORD")
+	private String password;
 
 }

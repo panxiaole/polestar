@@ -1,3 +1,17 @@
 spring:
   application:
-    name: api-server
+    name: polestar-api-server
+
+eureka:
+  instance:
+    instance-id: ${spring.application.name}
+    prefer-ip-address: true
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: ${eureka.server.zone}
+
+feign:
+  hystrix:
+    enabled: true
