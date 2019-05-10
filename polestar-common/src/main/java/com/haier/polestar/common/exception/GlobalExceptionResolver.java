@@ -106,6 +106,6 @@ public class GlobalExceptionResolver {
 
 	private Result defHandler(ResultCode resultCode, Exception e) {
 		log.error(resultCode.getReason(), e);
-		return ResultGenerator.failed(resultCode, null, e.getMessage());
+		return ResultGenerator.failed(resultCode,  e instanceof BusinessException ? e.getMessage() : null, e.getMessage());
 	}
 }

@@ -2,9 +2,9 @@ package com.haier.polestar.starter.log.aspect;
 
 import com.haier.polestar.common.singleton.JacksonMapper;
 import com.haier.polestar.common.util.IpUtil;
-import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.*;
+import org.slf4j.Logger;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -23,12 +23,12 @@ import java.util.Arrays;
  * @date 2018-10-23
  * @see com.haier.polestar.starter.log.annotation.SystemLog
  */
-@Slf4j
 @Aspect
 @Component
 @Profile({"dev", "test"})
 public class SystemLogAspect {
 
+	private static final Logger log = org.slf4j.LoggerFactory.getLogger(SystemLogAspect.class);
 	/**
 	 * 开始时间
 	 */
@@ -37,7 +37,7 @@ public class SystemLogAspect {
 	/**
 	 * 申明需要打印日志的切点
 	 */
-	@Pointcut("execution(public * com.haier.polestar.*.controller..*.*(..))")
+	@Pointcut("execution(public * com.haier.polestar.*.*.controller..*.*(..))")
 	private void logPointcuts() {
 	}
 
