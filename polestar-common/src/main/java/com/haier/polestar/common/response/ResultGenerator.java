@@ -6,7 +6,7 @@ import org.springframework.http.HttpStatus;
  * 响应结果生成工具
  *
  * @author panxiaole
- * @date   2019-05-07
+ * @date 2019-05-07
  */
 public class ResultGenerator {
 
@@ -16,7 +16,7 @@ public class ResultGenerator {
 	 * @param data 内容
 	 * @return 响应结果
 	 */
-	public static <T> Result<T> genOkResult(String message, T data) {
+	public static <T> Result<T> succeed(String message, T data) {
 		return new Result<T>().setSuccess(true).setCode(HttpStatus.OK.value()).setMessage(message).setData(data);
 	}
 
@@ -25,20 +25,32 @@ public class ResultGenerator {
 	 *
 	 * @return 响应结果
 	 */
-	public static <T> Result<T> genOkResult(String message) {
-		return genOkResult(message, null);
+	public static <T> Result<T> succeed(String message) {
+		return succeed(message, null);
 	}
 
 	/**
 	 * 失败响应结果
 	 *
-	 * @param code    状态码
-	 * @param message 消息
-	 * @param data    错误堆栈
+	 * @param resultCode 状态码枚举
+	 * @param message    消息
+	 * @param data       错误堆栈
 	 * @return 响应结果
 	 */
-	public static <T> Result<T> genFailedResult(int code, String message, T data) {
-		return new Result<T>().setSuccess(false).setCode(code).setMessage(message).setData(data);
+	public static <T> Result<T> failed(ResultCode resultCode, String message, T data) {
+		message = message == null ? resultCode.getReason() : resultCode.getReason() + ": " + message;
+		return new Result<T>().setSuccess(false).setCode(resultCode.getValue()).setMessage(message).setData(data);
+	}
+
+	/**
+	 * 失败响应结果
+	 *
+	 * @param resultCode 状态码枚举
+	 * @param message    消息
+	 * @return 响应结果
+	 */
+	public static <T> Result<T> failed(ResultCode resultCode, String message) {
+		return failed(resultCode, message, null);
 	}
 
 	/**
@@ -47,8 +59,8 @@ public class ResultGenerator {
 	 * @param resultCode 状态码枚举
 	 * @return 响应结果
 	 */
-	public static <T> Result<T> genFailedResult(ResultCode resultCode) {
-		return genFailedResult(resultCode.getValue(), resultCode.getReason(), null);
+	public static <T> Result<T> failed(ResultCode resultCode) {
+		return failed(resultCode, null, null);
 	}
 
 	/**
@@ -58,8 +70,8 @@ public class ResultGenerator {
 	 * @param data       错误堆栈
 	 * @return 响应结果
 	 */
-	public static <T> Result<T> genFailedResult(ResultCode resultCode, T data) {
-		return genFailedResult(resultCode.getValue(), resultCode.getReason(), data);
+	public static <T> Result<T> failed(ResultCode resultCode, T data) {
+		return failed(resultCode, resultCode.getReason(), data);
 	}
 
 	/**
@@ -68,8 +80,8 @@ public class ResultGenerator {
 	 * @param message 消息
 	 * @return 响应结果
 	 */
-	public static <T> Result<T> genFailedResult(String message) {
-		return genFailedResult(ResultCode.SUCCEED_REQUEST_FAILED_RESULT.getValue(), message, null);
+	public static <T> Result<T> failed(String message) {
+		return failed(ResultCode.SUCCEED_REQUEST_FAILED_RESULT, message, null);
 	}
 
 	/**
@@ -77,7 +89,7 @@ public class ResultGenerator {
 	 *
 	 * @return 响应结果
 	 */
-	public static <T> Result<T> genFailedResult() {
-		return genFailedResult(ResultCode.SUCCEED_REQUEST_FAILED_RESULT);
+	public static <T> Result<T> failed() {
+		return failed(ResultCode.SUCCEED_REQUEST_FAILED_RESULT);
 	}
 }

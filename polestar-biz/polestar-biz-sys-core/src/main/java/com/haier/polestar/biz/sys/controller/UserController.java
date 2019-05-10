@@ -2,6 +2,7 @@ package com.haier.polestar.biz.sys.controller;
 
 import com.haier.polestar.biz.sys.model.User;
 import com.haier.polestar.biz.sys.service.UserService;
+import com.haier.polestar.common.exception.GlobalExceptionResolver;
 import com.haier.polestar.common.response.Result;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 @Slf4j
 @RestController
 @RequestMapping("/api/users")
-public class UserController {
+public class UserController extends GlobalExceptionResolver {
 
 	@Autowired
 	private UserService userService;

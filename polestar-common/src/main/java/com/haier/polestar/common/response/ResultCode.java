@@ -5,8 +5,6 @@ import lombok.Getter;
 
 /**
  * 响应状态码枚举类
- * 自定义业务异常 2*** 开始
- * 原有类异常 4*** 开始
  *
  * @author panxiaole
  * @date   2019-05-07
@@ -43,17 +41,27 @@ public enum ResultCode {
 	/**
 	 * 账户名重复
 	 */
-	DUPLICATE_NAME(2004, "账户名重复"),
+	DUPLICATE_NAME(2004, "用户名重复"),
+
+	/**
+	 * 业务异常
+	 */
+	BUSINESS_EXCEPTION(3000, "业务异常"),
+
+	/**
+	 * 参数解析失败
+	 */
+	BAD_REQUEST(4000, "参数解析失败"),
+
+	/**
+	 * 未授权
+	 */
+	UNAUTHORIZED(4001, "未授权"),
 
 	/**
 	 * 数据库异常
 	 */
-	DATABASE_EXCEPTION(4001, "数据库异常"),
-
-	/**
-	 * 认证异常
-	 */
-	UNAUTHORIZED_EXCEPTION(4002, "认证异常"),
+	SQL_EXCEPTION(4002, "服务运行SQL异常"),
 
 	/**
 	 * 验证异常
@@ -61,9 +69,25 @@ public enum ResultCode {
 	VIOLATION_EXCEPTION(4003, "验证异常"),
 
 	/**
-	 * 空指针异常
+	 * 未找到请求资源
 	 */
-	NULL_POINT_EXCEPTION(4004, "空指针异常");
+	NOT_FOUND(4004, "未找到请求资源"),
+
+	/**
+	 * 不支持当前请求方法
+	 */
+	METHOD_NOT_ALLOWED(4005, "不支持当前请求方法"),
+
+	/**
+	 * 不支持当前请求方法
+	 */
+	UNSUPPORTED_MEDIA_TYPE(4015, "不支持的媒体类型"),
+
+	/**
+	 * 不支持当前请求方法
+	 */
+	INTERNAL_SERVER_ERROR(5000, "系统内部错误");
+
 
 	private final int value;
 
