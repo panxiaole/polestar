@@ -13,7 +13,8 @@ public class ResultGenerator {
 	/**
 	 * 成功响应结果
 	 *
-	 * @param data 内容
+	 * @param message 响应信息
+	 * @param data    响应内容
 	 * @return 响应结果
 	 */
 	public static <T> Result<T> succeed(String message, T data) {
@@ -23,10 +24,20 @@ public class ResultGenerator {
 	/**
 	 * 成功响应结果
 	 *
+	 * @param message 响应信息
 	 * @return 响应结果
 	 */
 	public static <T> Result<T> succeed(String message) {
 		return succeed(message, null);
+	}
+
+	/**
+	 * 成功响应结果
+	 *
+	 * @return 响应结果
+	 */
+	public static <T> Result<T> succeed() {
+		return succeed("操作成功");
 	}
 
 	/**

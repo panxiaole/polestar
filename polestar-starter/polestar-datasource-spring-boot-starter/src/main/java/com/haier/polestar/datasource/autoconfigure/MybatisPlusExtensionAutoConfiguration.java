@@ -1,17 +1,22 @@
 package com.haier.polestar.datasource.autoconfigure;
 
+import com.baomidou.mybatisplus.core.parser.ISqlParser;
 import com.baomidou.mybatisplus.extension.incrementer.OracleKeyGenerator;
+import com.baomidou.mybatisplus.extension.parsers.BlockAttackSqlParser;
 import com.baomidou.mybatisplus.extension.plugins.OptimisticLockerInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.PerformanceInterceptor;
-import com.haier.polestar.datasource.handler.DateMetaObjectHandler;
+import com.haier.polestar.datasource.handler.DefaultMetaObjectHandler;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.Profile;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 
 import javax.sql.DataSource;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * MybatisPlus 扩展功能自动配置类
@@ -20,7 +25,7 @@ import javax.sql.DataSource;
  * @date 2019-04-01
  */
 @ConditionalOnClass({DataSource.class, EmbeddedDatabaseType.class})
-@Import(DateMetaObjectHandler.class)
+@Import(DefaultMetaObjectHandler.class)
 public class MybatisPlusExtensionAutoConfiguration {
 
 	/**
@@ -41,10 +46,17 @@ public class MybatisPlusExtensionAutoConfiguration {
 
 	/**
 	 * 分页插件
+	 * 攻击 SQL 阻断解析器、加入解析链
 	 */
 	@Bean
+	@ConditionalOnMissingBean(PaginationInterceptor.class)
 	public PaginationInterceptor paginationInterceptor() {
-		return new PaginationInterceptor();
+		PaginationInterceptor paginationInterceptor = new PaginationInterceptor();
+		List<ISqlParser> sqlParserList = new ArrayList<>();
+		// 攻击 SQL 阻断解析器、加入解析链
+		sqlParserList.add(new BlockAttackSqlParser());
+		paginationInterceptor.setSqlParserList(sqlParserList);
+		return paginationInterceptor;
 	}
 
 	/**

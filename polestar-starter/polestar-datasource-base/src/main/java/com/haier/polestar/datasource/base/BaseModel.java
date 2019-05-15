@@ -29,14 +29,14 @@ public abstract class BaseModel extends Model {
 	 * 乐观锁版本号
 	 */
 	@Version
-	@TableField("VERSION")
-	protected int version;
+	@TableField(value = "VERSION", fill = FieldFill.INSERT)
+	protected Integer version;
 
 	/**
 	 * 数据有效性
 	 */
 	@TableLogic
-	@TableField("DELETED")
+	@TableField(value = "DELETED", fill = FieldFill.INSERT)
 	protected Boolean deleted;
 
 	/**

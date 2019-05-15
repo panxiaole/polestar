@@ -9,6 +9,10 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import java.util.Date;
+
 /**
  * 用户实体类
  *
@@ -23,9 +27,76 @@ import lombok.experimental.Accessors;
 @TableName("sys_user")
 public class User extends BaseModel {
 
+	/**
+	 * 用户名
+	 */
 	@TableField("USERNAME")
+	@NotEmpty(message = "用户名不能为空")
 	private String username;
+
+	/**
+	 * 密码
+	 */
 	@TableField("PASSWORD")
+	@NotEmpty(message = "密码不能为空")
 	private String password;
+
+	/**
+	 * 昵称
+	 */
+	@TableField("NICKNAME")
+	@NotEmpty(message = "昵称不能为空")
+	private String nickname;
+
+	/**
+	 * 手机
+	 */
+	@TableField("MOBILE")
+	@NotEmpty(message = "手机不能为空")
+	private String mobile;
+
+	/**
+	 * 邮箱
+	 */
+	@TableField("EMAIL")
+	@Email
+	@NotEmpty(message = "邮箱不能为空")
+	private String email;
+
+	/**
+	 * 是否被锁定
+	 */
+	@TableField("LOCKED")
+	private boolean locked;
+
+	/**
+	 * 账户过期时间
+	 */
+	@TableField("ACCOUNT_EXPIRE_DATE")
+	private Date accountExpireDate;
+
+	/**
+	 * 凭证过期时间
+	 */
+	@TableField("CREDENTIALS_EXPIRE_DATE")
+	private Date credentialsExpireDate;
+
+	/**
+	 * 最后登录时间
+	 */
+	@TableField("LAST_LOGIN_TIME")
+	private Date lastLoginTime;
+
+	/**
+	 * 原始密码
+	 */
+	@TableField(exist = false)
+	private String oldPassword;
+
+	/**
+	 * 新密码
+	 */
+	@TableField(exist = false)
+	private String newPassword;
 
 }

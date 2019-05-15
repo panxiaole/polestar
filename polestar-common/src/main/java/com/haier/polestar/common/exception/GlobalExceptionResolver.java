@@ -4,6 +4,7 @@ import com.haier.polestar.common.response.Result;
 import com.haier.polestar.common.response.ResultCode;
 import com.haier.polestar.common.response.ResultGenerator;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpStatus;
 import org.springframework.jdbc.BadSqlGrammarException;
 import org.springframework.web.HttpMediaTypeNotSupportedException;
@@ -12,9 +13,11 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 import java.nio.file.AccessDeniedException;
 import java.sql.SQLException;
+import java.util.stream.Collectors;
 
 /**
  * 全局异常处理
@@ -37,11 +40,16 @@ public class GlobalExceptionResolver {
 
 	/**
 	 * ConstraintViolationException异常处理
+	 * 返回状态吗:500
 	 */
 	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
 	@ExceptionHandler(ConstraintViolationException.class)
 	public Result validatorException(ConstraintViolationException e) {
-		return defHandler(ResultCode.VIOLATION_EXCEPTION, e);
+		String msg = e.getConstraintViolations()
+				.stream()
+				.map(ConstraintViolation::getMessage)
+				.collect(Collectors.joining("、"));
+		return defHandler(ResultCode.VIOLATION_EXCEPTION, msg, e);
 	}
 
 	/**
@@ -85,13 +93,23 @@ public class GlobalExceptionResolver {
 	}
 
 	/**
+	 * DuplicateKeyException异常处理
+	 * 返回状态码:500
+	 */
+	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+	@ExceptionHandler({DuplicateKeyException.class})
+	public Result handleDuplicateKeyException(DuplicateKeyException e) {
+		return defHandler(ResultCode.DUPLICATE_KEY_EXCEPTION, e);
+	}
+
+	/**
 	 * BusinessException异常处理
 	 * 返回状态码:500
 	 */
 	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
 	@ExceptionHandler(BusinessException.class)
 	public Result handleBusinessException(BusinessException e) {
-		return defHandler(ResultCode.BUSINESS_EXCEPTION, e);
+		return defHandler(ResultCode.BUSINESS_EXCEPTION, e.getMessage(), e);
 	}
 
 	/**
@@ -104,8 +122,27 @@ public class GlobalExceptionResolver {
 		return defHandler(ResultCode.INTERNAL_SERVER_ERROR, e);
 	}
 
+	/**
+	 * 构造异常处理结果
+	 *
+	 * @param resultCode 返回码
+	 * @param e          异常
+	 * @return Result
+	 */
 	private Result defHandler(ResultCode resultCode, Exception e) {
+		return defHandler(resultCode, null, e);
+	}
+
+	/**
+	 * 构造异常处理结果
+	 *
+	 * @param resultCode 返回码
+	 * @param message    自定义异常信息
+	 * @param e          异常
+	 * @return Result
+	 */
+	private Result defHandler(ResultCode resultCode, String message, Exception e) {
 		log.error(resultCode.getReason(), e);
-		return ResultGenerator.failed(resultCode,  e instanceof BusinessException ? e.getMessage() : null, e.getMessage());
+		return ResultGenerator.failed(resultCode, message, e.getMessage());
 	}
 }
