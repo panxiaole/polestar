@@ -10,6 +10,9 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.haier.polestar.common.exception.IdempotencyException;
 import com.haier.polestar.common.exception.LockException;
 import com.haier.polestar.common.lock.DistributedLock;
+import com.haier.polestar.common.response.Result;
+import com.haier.polestar.common.response.ResultCode;
+import com.haier.polestar.common.response.ResultGenerator;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -18,9 +21,43 @@ import java.util.Objects;
  * service实现父类
  *
  * @author panxiaole
- * @date 2019/1/10
+ * @date 2019-04-20
  */
 public class BaseServiceImpl<M extends BaseMapper<T>, T> extends ServiceImpl<M, T> implements BaseService<T> {
+
+    /**
+     * 新增记录
+     *
+     * @param model model
+     * @return result
+     */
+    @Override
+    public Result<T> add(T model) {
+        return super.save(model) ? ResultGenerator.succeed() : ResultGenerator.failed("操作失败");
+    }
+
+    /**
+     * 修改记录
+     *
+     * @param model model
+     * @return result
+     */
+    @Override
+    public Result<T> update(T model) {
+        return super.updateById(model) ? ResultGenerator.succeed() : ResultGenerator.failed(ResultCode.OPTIMISTIC_LOCKER_EXCEPTION);
+    }
+
+    /**
+     * 删除记录
+     *
+     * @param id id
+     * @return result
+     */
+    @Override
+    public Result<T> delete(Serializable id) {
+        return super.removeById(id) ? ResultGenerator.succeed() : ResultGenerator.failed(ResultCode.OPTIMISTIC_LOCKER_EXCEPTION);
+    }
+
     /**
      * 幂等性新增记录
      * 例子如下：

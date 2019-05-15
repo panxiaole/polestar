@@ -1,12 +1,8 @@
 package com.haier.polestar.biz.sys.service;
 
 import com.haier.polestar.biz.sys.model.User;
-import com.haier.polestar.common.response.Result;
 import com.haier.polestar.datasource.base.BaseService;
 import org.springframework.validation.annotation.Validated;
-
-import javax.validation.Valid;
-import java.io.Serializable;
 
 /**
  * 用户管理接口
@@ -32,29 +28,5 @@ public interface UserService extends BaseService<User> {
 	 * @return user
 	 */
 	User findByMobile(String mobile);
-
-	/**
-	 * 新增用户
-	 *
-	 * @param user user
-	 * @return result
-	 */
-	Result<User> add(@Valid User user);
-
-	/**
-	 * 修改用户
-	 *
-	 * @param user user
-	 * @return result
-	 */
-	Result<User> update(@Valid User user);
-
-	/**
-	 * 删除用户
-	 *
-	 * @param id id
-	 * @return result
-	 */
-	Result<User> delete(Serializable id);
 
 }

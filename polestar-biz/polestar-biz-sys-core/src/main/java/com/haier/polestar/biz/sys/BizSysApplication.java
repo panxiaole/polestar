@@ -6,9 +6,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
 
 /**
- * @desc
- * @author  panxiaole
- * @Date    2019-05-07 11:34
+ * @author panxiaole
+ * @date 2019-05-07
  */
 @EnableCaching
 @EnableOutputSystemLog

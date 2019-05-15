@@ -66,7 +66,7 @@ public enum ResultCode {
 	/**
 	 * 验证异常
 	 */
-	VIOLATION_EXCEPTION(4003, "验证异常"),
+	VIOLATION_EXCEPTION(4003, "实体校验异常"),
 
 	/**
 	 * 未找到请求资源

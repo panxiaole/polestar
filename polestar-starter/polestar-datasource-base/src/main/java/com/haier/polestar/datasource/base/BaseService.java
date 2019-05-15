@@ -3,6 +3,10 @@ package com.haier.polestar.datasource.base;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.haier.polestar.common.lock.DistributedLock;
+import com.haier.polestar.common.response.Result;
+
+import javax.validation.Valid;
+import java.io.Serializable;
 
 /**
  * service接口父类
@@ -11,6 +15,31 @@ import com.haier.polestar.common.lock.DistributedLock;
  * @date 2019-04-20
  */
 public interface BaseService<T> extends IService<T> {
+
+    /**
+     * 新增记录
+     *
+     * @param model model
+     * @return result
+     */
+    Result<T> add(@Valid T model);
+
+    /**
+     * 修改记录
+     *
+     * @param model model
+     * @return result
+     */
+    Result<T> update(@Valid T model);
+
+    /**
+     * 删除记录
+     *
+     * @param id id
+     * @return result
+     */
+    Result<T> delete(Serializable id);
+
     /**
      * 幂等性新增记录
      *
