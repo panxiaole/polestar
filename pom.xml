@@ -109,17 +109,22 @@
             </dependency>
             <dependency>
                 <groupId>com.haier</groupId>
-                <artifactId>polestar-register</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.haier</groupId>
                 <artifactId>polestar-log-spring-boot-starter</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.haier</groupId>
+                <artifactId>polestar-datasource-base</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.haier</groupId>
                 <artifactId>polestar-datasource-spring-boot-starter</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.haier</groupId>
+                <artifactId>polestar-redis-spring-boot-starter</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
@@ -130,11 +135,6 @@
             <dependency>
                 <groupId>com.haier</groupId>
                 <artifactId>polestar-biz-sys-api</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.haier</groupId>
-                <artifactId>polestar-datasource-base</artifactId>
                 <version>${project.version}</version>
             </dependency>
         </dependencies>

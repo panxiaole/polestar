@@ -3,6 +3,7 @@ package com.haier.polestar.common.exception;
 import com.haier.polestar.common.response.Result;
 import com.haier.polestar.common.response.ResultCode;
 import com.haier.polestar.common.response.ResultGenerator;
+import com.haier.polestar.common.util.ExceptionUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpStatus;
@@ -10,6 +11,7 @@ import org.springframework.jdbc.BadSqlGrammarException;
 import org.springframework.web.HttpMediaTypeNotSupportedException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -26,6 +28,7 @@ import java.util.stream.Collectors;
  * @date 2019-04-20
  */
 @Slf4j
+@ResponseBody
 @RestControllerAdvice
 public class GlobalExceptionResolver {
 	/**
@@ -109,7 +112,7 @@ public class GlobalExceptionResolver {
 	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
 	@ExceptionHandler(BusinessException.class)
 	public Result handleBusinessException(BusinessException e) {
-		return defHandler(ResultCode.BUSINESS_EXCEPTION, e.getMessage(), e);
+		return defHandler(ResultCode.BUSINESS_EXCEPTION, ExceptionUtil.getExceptionCause(e), e);
 	}
 
 	/**

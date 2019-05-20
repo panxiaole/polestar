@@ -3,8 +3,11 @@ package com.haier.polestar.biz.sys.controller;
 import com.haier.polestar.biz.sys.model.User;
 import com.haier.polestar.biz.sys.service.UserService;
 import com.haier.polestar.datasource.base.BaseController;
+import com.haier.polestar.redis.annotation.CacheExpire;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @date 2019-05-08
  */
 @Slf4j
+@CacheConfig(cacheNames = "users")
 @RestController
 @RequestMapping("/api/users")
 public class UserController extends BaseController<User, UserService> {
@@ -29,6 +33,8 @@ public class UserController extends BaseController<User, UserService> {
 	 * @return user
 	 */
 	@GetMapping("/username/{username}")
+	@Cacheable(cacheNames = "users::username", key = "#username")
+	@CacheExpire(30)
 	public User findByUsername(@PathVariable String username) {
 		return userService.findByUsername(username);
 	}
@@ -40,6 +46,8 @@ public class UserController extends BaseController<User, UserService> {
 	 * @return user
 	 */
 	@GetMapping("/mobile/{mobile}")
+	@Cacheable(cacheNames = "users::mobile", key = "#mobile")
+	@CacheExpire(30)
 	public User findByMobile(@PathVariable String mobile) {
 		return userService.findByMobile(mobile);
 	}

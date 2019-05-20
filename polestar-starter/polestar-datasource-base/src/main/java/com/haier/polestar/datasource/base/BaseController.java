@@ -1,6 +1,5 @@
 package com.haier.polestar.datasource.base;
 
-import com.haier.polestar.common.exception.GlobalExceptionResolver;
 import com.haier.polestar.common.response.Result;
 import com.haier.polestar.starter.log.annotation.SystemLog;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
  * @author panxiaole
  * @date 2019-05-15
  */
-public abstract class BaseController<T, S extends BaseService<T>> extends GlobalExceptionResolver {
+public abstract class BaseController<T, S extends BaseService<T>> {
 
 	@SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
 	@Autowired

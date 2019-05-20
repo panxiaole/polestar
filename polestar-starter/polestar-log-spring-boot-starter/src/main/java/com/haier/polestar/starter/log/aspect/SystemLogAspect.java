@@ -37,7 +37,7 @@ public class SystemLogAspect {
 	/**
 	 * 申明需要打印日志的切点
 	 */
-	@Pointcut("execution(public * com.haier.polestar.*.*.controller..*.*(..))")
+	@Pointcut("execution(public * com.haier.polestar..*.controller..*.*(..))")
 	private void logPointcuts() {
 	}
 

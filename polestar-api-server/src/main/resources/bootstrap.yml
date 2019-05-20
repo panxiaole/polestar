@@ -25,10 +25,22 @@ eureka:
     service-url:
       defaultZone: ${eureka.server.zone}
 
-# 开启断路器
+# 开启断路器,配置超时时间
 feign:
   hystrix:
     enabled: true
+  client:
+    config:
+      polestar-biz-sys:
+        connectTimeout: 5000
+        readTimeout: 5000
+        loggerLevel: basic
+  # 开启请求及响应压缩
+  compression:
+    request:
+      enabled: true
+    response:
+      enabled: true
 
 # actuator监控
 management:
