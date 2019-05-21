@@ -1,0 +1,6 @@
+zuul:
+  prefix: /
+  routes:
+    biz-sys:
+      service-id: polestar-biz-sys
+      path: /sys/**
