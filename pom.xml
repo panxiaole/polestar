@@ -29,10 +29,14 @@
         <spring-boot.version>2.1.5.RELEASE</spring-boot.version>
         <spring-boot-admin.version>2.1.5</spring-boot-admin.version>
         <spring-cloud.version>Greenwich.RELEASE</spring-cloud.version>
-        <spring-boot-maven-plugin.version>2.1.5.RELEASE</spring-boot-maven-plugin.version>
         <spring-cloud-alibaba.version>0.2.1.RELEASE</spring-cloud-alibaba.version>
         <over-slf4j.version>1.7.25</over-slf4j.version>
         <mybatis-plus.version>3.1.1</mybatis-plus.version>
+        <docker.baseImage>openjdk:8-jre-alpine</docker.baseImage>
+        <docker.volumes>/tmp</docker.volumes>
+        <docker.image.prefix>polestar</docker.image.prefix>
+        <docker.java.security.egd>-Djava.security.egd=file:/dev/./urandom</docker.java.security.egd>
+        <docker.java.opts>-Xms128m -Xmx128m</docker.java.opts>
     </properties>
 
     <dependencyManagement>
@@ -154,7 +158,6 @@
                 <plugin>
                     <groupId>org.springframework.boot</groupId>
                     <artifactId>spring-boot-maven-plugin</artifactId>
-                    <version>${spring-boot-maven-plugin.version}</version>
                     <executions>
                         <execution>
                             <goals>
@@ -167,6 +170,27 @@
                     <groupId>com.spotify</groupId>
                     <artifactId>docker-maven-plugin</artifactId>
                     <version>${docker-maven-plugin.version}</version>
+                    <configuration>
+                        <imageName>${docker.image.prefix}/${project.artifactId}</imageName>
+                        <imageTags>
+                            <imageTag>latest</imageTag>
+                            <imageTag>${project.version}</imageTag>
+                        </imageTags>
+                        <forceTags>true</forceTags>
+                        <baseImage>${docker.baseImage}</baseImage>
+                        <volumes>${docker.volumes}</volumes>
+                        <env>
+                            <JAVA_OPTS>${docker.java.opts}</JAVA_OPTS>
+                        </env>
+                        <entryPoint>["sh","-c","java $JAVA_OPTS ${docker.java.security.egd} -jar /${project.build.finalName}.jar"]</entryPoint>
+                        <resources>
+                            <resource>
+                                <targetPath>/</targetPath>
+                                <directory>${project.build.directory}</directory>
+                                <include>${project.build.finalName}.jar</include>
+                            </resource>
+                        </resources>
+                    </configuration>
                 </plugin>
             </plugins>
         </pluginManagement>
