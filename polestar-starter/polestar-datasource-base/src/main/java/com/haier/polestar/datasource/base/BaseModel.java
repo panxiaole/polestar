@@ -2,6 +2,7 @@ package com.haier.polestar.datasource.base;
 
 import com.baomidou.mybatisplus.annotation.*;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
+import com.haier.polestar.datasource.annotation.QueryCondition;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -50,5 +51,21 @@ public abstract class BaseModel extends Model {
 	 */
 	@TableField(value = "UPDATE_TIME", fill = FieldFill.INSERT_UPDATE)
 	protected Date updateTime;
+
+	/**
+	 * 创建时间--开始
+	 * 用于查询
+	 */
+	@TableField(exist = false)
+	@QueryCondition(field = "CREATE_TIME", condition = QueryCondition.Contition.GE)
+	protected Date createTimeBegin;
+
+	/**
+	 * 创建时间--结束
+	 * 用于查询
+	 */
+	@TableField(exist = false)
+	@QueryCondition(field = "CREATE_TIME", condition = QueryCondition.Contition.LT)
+	protected Date createTimeEnd;
 
 }

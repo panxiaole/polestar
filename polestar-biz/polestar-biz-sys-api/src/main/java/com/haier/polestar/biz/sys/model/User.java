@@ -67,7 +67,7 @@ public class User extends BaseModel {
 	 * 是否被锁定
 	 */
 	@TableField("LOCKED")
-	private boolean locked;
+	private Boolean locked;
 
 	/**
 	 * 账户过期时间

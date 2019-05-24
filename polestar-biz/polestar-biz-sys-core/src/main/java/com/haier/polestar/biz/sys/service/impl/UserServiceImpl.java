@@ -20,12 +20,12 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
 
 	@Override
 	public User findByUsername(String username) {
-		return super.getOne(new QueryWrapper<User>().eq("username", username));
+		return super.getOne(new QueryWrapper<User>().eq("USERNAME", username));
 	}
 
 	@Override
 	public User findByMobile(String mobile) {
-		return super.getOne(new QueryWrapper<User>().eq("mobile", mobile));
+		return super.getOne(new QueryWrapper<User>().eq("MOBILE", mobile));
 	}
 
 }

@@ -1,5 +1,7 @@
 package com.haier.polestar.datasource.base;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.haier.polestar.common.response.Result;
 import com.haier.polestar.starter.log.annotation.SystemLog;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,5 +65,17 @@ public abstract class BaseController<T, S extends BaseService<T>> {
 	@DeleteMapping("/{id}")
 	public Result delete(@PathVariable Long id) {
 		return baseService.delete(id);
+	}
+
+	/**
+	 * 分页
+	 * @param page 分页对象
+	 * @param model 查询条件
+	 * @return page
+	 */
+	@SystemLog
+	@GetMapping
+	public IPage<T> selectPage(Page<T> page, T model) {
+		return baseService.selectPage(page, model);
 	}
 }

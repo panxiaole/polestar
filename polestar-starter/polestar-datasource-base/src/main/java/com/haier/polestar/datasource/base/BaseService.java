@@ -1,9 +1,12 @@
 package com.haier.polestar.datasource.base;
 
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.haier.polestar.common.lock.DistributedLock;
 import com.haier.polestar.common.response.Result;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.validation.Valid;
 import java.io.Serializable;
@@ -22,6 +25,7 @@ public interface BaseService<T> extends IService<T> {
      * @param model model
      * @return result
      */
+    @Transactional(rollbackFor = Exception.class)
     Result<T> add(@Valid T model);
 
     /**
@@ -30,6 +34,7 @@ public interface BaseService<T> extends IService<T> {
      * @param model model
      * @return result
      */
+    @Transactional(rollbackFor = Exception.class)
     Result<T> update(@Valid T model);
 
     /**
@@ -38,7 +43,16 @@ public interface BaseService<T> extends IService<T> {
      * @param id id
      * @return result
      */
+    @Transactional(rollbackFor = Exception.class)
     Result<T> delete(Serializable id);
+
+    /**
+     * 分页
+     * @param page 分页对象
+     * @param model 查询条件
+     * @return page
+     */
+    IPage<T> selectPage(Page<T> page, T model);
 
     /**
      * 幂等性新增记录
