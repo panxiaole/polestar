@@ -22,8 +22,6 @@ import com.haier.polestar.datasource.annotation.QueryCondition;
 
 import java.io.Serializable;
 import java.lang.reflect.Field;
-import java.sql.Timestamp;
-import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -100,8 +98,8 @@ public class BaseServiceImpl<M extends BaseMapper<T>, T> extends ServiceImpl<M, 
 				if (field.get(model) == null) {
 					continue;
 				}
-				if (field.getType().equals(Date.class) || field.getType().equals(Timestamp.class)) {
-					//时间类型根据范围查询
+				if (!tableField.exist()) {
+					//非实体字段检查是否有QueryCondition注解,并根据注解中的参数组织查询条件
 					QueryCondition queryCondition = field.getAnnotation(QueryCondition.class);
 					if (queryCondition == null) {
 						continue;
@@ -123,7 +121,7 @@ public class BaseServiceImpl<M extends BaseMapper<T>, T> extends ServiceImpl<M, 
 						default:
 					}
 				} else {
-					//非时间类型默认用等于
+					//实体字段直接用equals构建查询条件
 					wrapper.eq(tableField.value(), field.get(model));
 				}
 			} catch (IllegalAccessException e) {
