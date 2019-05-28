@@ -1,7 +1,8 @@
-package com.haier.polestar.zuul.polestarzuul;
+package com.haier.polestar.zuul.polestar.zuul;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
 
 /**
@@ -11,6 +12,7 @@ import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
  * @date 2019-05-21
  */
 @EnableZuulProxy
+@EnableEurekaClient
 @SpringBootApplication
 public class ZuulApplication {
 
