@@ -18,6 +18,7 @@
         <module>polestar-datasource-spring-boot-starter</module>
         <module>polestar-log-spring-boot-starter</module>
         <module>polestar-redis-spring-boot-starter</module>
+        <module>polestar-swagger2-spring-boot-starter</module>
     </modules>
 
 

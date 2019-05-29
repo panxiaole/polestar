@@ -1,4 +1,4 @@
-package com.haier.polestar.starter.log.util;
+package com.haier.polestar.log.util;
 
 import lombok.extern.slf4j.Slf4j;
 

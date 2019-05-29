@@ -1,7 +1,8 @@
-package com.haier.polestar.starter.log.aspect;
+package com.haier.polestar.log.aspect;
 
 import com.haier.polestar.common.singleton.JacksonMapper;
 import com.haier.polestar.common.util.IpUtil;
+import com.haier.polestar.log.annotation.SystemLog;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.slf4j.Logger;
@@ -21,7 +22,7 @@ import java.util.Arrays;
  *
  * @author panxiaole
  * @date 2018-10-23
- * @see com.haier.polestar.starter.log.annotation.SystemLog
+ * @see SystemLog
  */
 @Aspect
 @Component
@@ -41,7 +42,7 @@ public class SystemLogAspect {
 	private void logPointcuts() {
 	}
 
-	@Pointcut("@annotation(com.haier.polestar.starter.log.annotation.SystemLog)")
+	@Pointcut("@annotation(com.haier.polestar.log.annotation.SystemLog)")
 	private void logAnnotations() {
 	}
 

@@ -1,7 +1,7 @@
 spring:
   # datasource
   datasource:
-    url: jdbc:mysql://127.0.0.1:3306/polestar-biz-sys?autoReconnect=true&useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&autoReconnectForPools=true&serverTimezone=GMT%2B8
+    url: jdbc:mysql://127.0.0.1:3306/polestar-biz-sys${spring.datasource.mysql.url.suffix}
     username: root
     password: welcome
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -24,3 +24,20 @@ mybatis-plus:
     db-config:
       logic-delete-value: 1 # 逻辑已删除值(默认为 1)
       logic-not-delete-value: 0 # 逻辑未删除值(默认为 0)
+
+swagger:
+  basic:
+    enable: true
+    username: admin
+    password: admin
+  enable: true
+  title: 系统管理
+  description: 系统管理模块接口文档
+  version: 1.0
+  basePackage: com.haier.polestar.biz.sys.controller
+  termsOfServiceUrl: https://github.com/17685559889/polestar
+  contact:
+    name: 潘小乐
+    email: panxiaole@haier.com
+    url: https://github.com/17685559889
+

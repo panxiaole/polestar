@@ -1,6 +1,6 @@
-package com.haier.polestar.starter.log.annotation;
+package com.haier.polestar.log.annotation;
 
-import com.haier.polestar.starter.log.aspect.SystemLogAspect;
+import com.haier.polestar.log.aspect.SystemLogAspect;
 import org.springframework.context.annotation.Import;
 
 import java.lang.annotation.ElementType;

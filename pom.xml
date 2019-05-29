@@ -32,6 +32,9 @@
         <spring-cloud-alibaba.version>0.2.1.RELEASE</spring-cloud-alibaba.version>
         <over-slf4j.version>1.7.25</over-slf4j.version>
         <mybatis-plus.version>3.1.1</mybatis-plus.version>
+        <swagger.version>2.9.2</swagger.version>
+        <swagger-annotations.version>1.5.20</swagger-annotations.version>
+        <swagger-bootstrap-ui.version>1.9.3</swagger-bootstrap-ui.version>
         <docker.baseImage>openjdk:8-jre-alpine</docker.baseImage>
         <docker.volumes>/tmp</docker.volumes>
         <docker.image.prefix>polestar</docker.image.prefix>
@@ -105,6 +108,27 @@
                 <artifactId>mybatis-plus-annotation</artifactId>
                 <version>${mybatis-plus.version}</version>
             </dependency>
+            <!--sgagger2-->
+            <dependency>
+                <groupId>io.springfox</groupId>
+                <artifactId>springfox-swagger-ui</artifactId>
+                <version>${swagger.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.springfox</groupId>
+                <artifactId>springfox-swagger2</artifactId>
+                <version>${swagger.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.swagger</groupId>
+                <artifactId>swagger-annotations</artifactId>
+                <version>${swagger-annotations.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.xiaoymin</groupId>
+                <artifactId>swagger-bootstrap-ui</artifactId>
+                <version>${swagger-bootstrap-ui.version}</version>
+            </dependency>
 
             <!--project modules-->
             <dependency>
@@ -114,14 +138,21 @@
             </dependency>
             <dependency>
                 <groupId>com.haier</groupId>
-                <artifactId>polestar-log-spring-boot-starter</artifactId>
+                <artifactId>polestar-datasource-base</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.haier</groupId>
-                <artifactId>polestar-datasource-base</artifactId>
+                <artifactId>polestar-common</artifactId>
                 <version>${project.version}</version>
             </dependency>
+            <!--project api module-->
+            <dependency>
+                <groupId>com.haier</groupId>
+                <artifactId>polestar-biz-sys-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <!--project customization starter-->
             <dependency>
                 <groupId>com.haier</groupId>
                 <artifactId>polestar-datasource-spring-boot-starter</artifactId>
@@ -134,12 +165,12 @@
             </dependency>
             <dependency>
                 <groupId>com.haier</groupId>
-                <artifactId>polestar-common</artifactId>
+                <artifactId>polestar-swagger2-spring-boot-starter</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.haier</groupId>
-                <artifactId>polestar-biz-sys-api</artifactId>
+                <artifactId>polestar-log-spring-boot-starter</artifactId>
                 <version>${project.version}</version>
             </dependency>
         </dependencies>

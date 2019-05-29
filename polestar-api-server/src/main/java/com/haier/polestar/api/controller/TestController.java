@@ -1,6 +1,6 @@
 package com.haier.polestar.api.controller;
 
-import com.haier.polestar.starter.log.annotation.SystemLog;
+import com.haier.polestar.log.annotation.SystemLog;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 

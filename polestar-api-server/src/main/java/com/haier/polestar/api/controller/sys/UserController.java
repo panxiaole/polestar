@@ -4,7 +4,7 @@ import com.haier.polestar.biz.sys.client.UserClient;
 import com.haier.polestar.biz.sys.model.User;
 import com.haier.polestar.common.exception.GlobalExceptionResolver;
 import com.haier.polestar.common.response.Result;
-import com.haier.polestar.starter.log.annotation.SystemLog;
+import com.haier.polestar.log.annotation.SystemLog;
 import feign.FeignException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

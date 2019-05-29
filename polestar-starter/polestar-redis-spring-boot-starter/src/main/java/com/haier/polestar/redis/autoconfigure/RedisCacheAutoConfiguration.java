@@ -30,7 +30,6 @@ import java.time.Duration;
  */
 @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
 @Slf4j
-@Configuration
 @EnableCaching(proxyTargetClass = true)
 @EnableConfigurationProperties(RedisProperties.class)
 public class RedisCacheAutoConfiguration extends CachingConfigurerSupport {

@@ -1,6 +1,6 @@
 package com.haier.polestar.api;
 
-import com.haier.polestar.starter.log.annotation.EnableOutputSystemLog;
+import com.haier.polestar.log.annotation.EnableOutputSystemLog;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;

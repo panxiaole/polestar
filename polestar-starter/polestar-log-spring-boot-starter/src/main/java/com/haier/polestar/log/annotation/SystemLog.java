@@ -1,4 +1,4 @@
-package com.haier.polestar.starter.log.annotation;
+package com.haier.polestar.log.annotation;
 
 import java.lang.annotation.*;
 

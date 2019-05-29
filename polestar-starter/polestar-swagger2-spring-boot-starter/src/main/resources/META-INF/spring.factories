@@ -1,0 +1,2 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.haier.polestar.swagger2.autoconfigure.Swagger2AutoConfiguration
