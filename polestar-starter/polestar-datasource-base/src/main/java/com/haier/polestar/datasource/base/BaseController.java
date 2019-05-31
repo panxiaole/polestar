@@ -2,6 +2,7 @@ package com.haier.polestar.datasource.base;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.haier.polestar.common.exception.GlobalExceptionResolver;
 import com.haier.polestar.common.response.Result;
 import com.haier.polestar.log.annotation.SystemLog;
 import io.swagger.annotations.ApiOperation;
@@ -15,9 +16,9 @@ import org.springframework.web.bind.annotation.*;
  * @author panxiaole
  * @date 2019-05-15
  */
-public abstract class BaseController<T, S extends BaseService<T>> {
+@SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
+public abstract class BaseController<T, S extends BaseService<T>> extends GlobalExceptionResolver {
 
-	@SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
 	@Autowired
 	private S baseService;
 
@@ -43,7 +44,7 @@ public abstract class BaseController<T, S extends BaseService<T>> {
 	@SystemLog
 	@ApiOperation("新增记录")
 	@PostMapping
-	public Result add(@RequestBody T model) {
+	public Result<T> add(@RequestBody T model) {
 		return baseService.add(model);
 	}
 
@@ -56,7 +57,7 @@ public abstract class BaseController<T, S extends BaseService<T>> {
 	@SystemLog
 	@ApiOperation("修改记录")
 	@PutMapping
-	public Result update(@RequestBody T model) {
+	public Result<T> update(@RequestBody T model) {
 		return baseService.update(model);
 	}
 
@@ -69,7 +70,7 @@ public abstract class BaseController<T, S extends BaseService<T>> {
 	@SystemLog
 	@ApiOperation("删除记录")
 	@DeleteMapping("/{id}")
-	public Result delete(@PathVariable Long id) {
+	public Result<T> delete(@PathVariable Long id) {
 		return baseService.delete(id);
 	}
 

@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @date 2019-05-08
  */
 @Slf4j
-@Api("用户管理API")
+@Api(tags = "用户管理")
 @RestController
 @RequestMapping("/api/users")
 @CacheConfig(cacheNames = "users")
