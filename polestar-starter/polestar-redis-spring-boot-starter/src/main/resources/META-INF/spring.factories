@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-com.haier.polestar.redis.autoconfigure.RedisCacheAutoConfiguration
+com.github.panxiaole.polestar.redis.autoconfigure.RedisCacheAutoConfiguration

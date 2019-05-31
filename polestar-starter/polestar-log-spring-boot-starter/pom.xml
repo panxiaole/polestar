@@ -3,7 +3,7 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <groupId>com.haier</groupId>
+        <groupId>com.github.panxiaole</groupId>
         <artifactId>polestar-starter</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
@@ -39,7 +39,7 @@
         </dependency>
         <!--polestar-common-->
         <dependency>
-            <groupId>com.haier</groupId>
+            <groupId>com.github.panxiaole</groupId>
             <artifactId>polestar-common</artifactId>
         </dependency>
     </dependencies>

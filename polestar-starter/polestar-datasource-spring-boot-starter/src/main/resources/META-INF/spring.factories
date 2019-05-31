@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-com.haier.polestar.datasource.autoconfigure.MybatisPlusExtensionAutoConfiguration
+com.github.panxiaole.polestar.datasource.autoconfigure.MybatisPlusExtensionAutoConfiguration

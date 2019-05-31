@@ -82,11 +82,11 @@
 	</appender>
 
 	<!--=============================== 日志输出: 默认主业务日志 ====================================== -->
-	<logger name="com.haier" level="INFO" />
+	<logger name="com.github.panxiaole" level="INFO" />
 	<logger name="org.springframework" level="WARN" />
 	<logger name="freemarker" level="WARN" />
 	<logger name="org.hibernate.SQL" level="DEBUG" />
-	<logger name="com.haier.polestar.starter.log.util" level="INFO" addtivity="false">
+	<logger name="com.github.panxiaole.polestar.starter.log.util" level="INFO" addtivity="false">
 		<appender-ref ref="POINT_ASYNC" />
 	</logger>
 

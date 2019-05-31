@@ -9,8 +9,8 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
 # Mybatis-plus
 mybatis-plus:
-  type-aliases-package: com.haier.**.model
-  type-enums-package: com.haier.**.enumeration
+  type-aliases-package: com.github.panxiaole.**.model
+  type-enums-package: com.github.panxiaole.**.enumeration
   mapper-locations:
     - classpath*:mybatis/mapper/*.xml
   configuration:

@@ -6,12 +6,12 @@ swagger:
   title: 系统管理
   description: 系统管理模块接口文档
   version: 1.0
-  basePackage: com.haier.polestar.biz.sys.controller
-  termsOfServiceUrl: https://github.com/17685559889/polestar
+  basePackage: com.github.panxiaole.polestar.biz.sys.controller
+  termsOfServiceUrl: https://github.com/panxiaole/polestar
   contact:
     name: 潘小乐
     email: panxiaole@haier.com
-    url: https://github.com/17685559889
+    url: https://github.com/panxiale
 
 ```
 
