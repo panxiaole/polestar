@@ -1,5 +1,5 @@
 server:
-  port: 9999
+  port: ${swagger.port}
 
 spring:
   application:
@@ -15,10 +15,3 @@ eureka:
     fetch-registry: true
     service-url:
       defaultZone: ${eureka.server.zone}
-
-swagger:
-  basic:
-    enable: true
-    username: admin
-    password: admin
-  enable: true

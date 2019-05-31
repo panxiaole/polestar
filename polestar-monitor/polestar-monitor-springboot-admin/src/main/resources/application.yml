@@ -1,10 +1,10 @@
 server:
-  port: ${adminui.port}
+  port: ${springboot.admin.port}
 
 spring:
   application:
     name: spring-boot-admin-server
   security:
     user:
-      name: ${adminui.username}
-      password: ${adminui.password}
+      name: ${springboot.admin.username}
+      password: ${springboot.admin.password}

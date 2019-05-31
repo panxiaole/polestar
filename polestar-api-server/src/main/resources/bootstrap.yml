@@ -8,9 +8,9 @@ spring:
   boot:
     admin:
       client:
-        url: ${adminui.hostname}
-        username: ${adminui.username}
-        password: ${adminui.password}
+        url: ${springboot.admin.hostname}
+        username: ${springboot.admin.username}
+        password: ${springboot.admin.password}
         instance:
           prefer-ip: true
 

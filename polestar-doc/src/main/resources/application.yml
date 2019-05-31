@@ -1,0 +1,6 @@
+swagger:
+  basic:
+    enable: true
+    username: ${swagger.username}
+    password: ${swagger.password}
+  enable: true
