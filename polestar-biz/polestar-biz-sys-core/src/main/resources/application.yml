@@ -30,7 +30,7 @@ swagger:
     enable: false
     username: ${swagger.username}
     password: ${swagger.password}
-  enable: false
+  enable: true
   title: 系统管理
   description: 系统管理模块接口文档
   version: 1.0
