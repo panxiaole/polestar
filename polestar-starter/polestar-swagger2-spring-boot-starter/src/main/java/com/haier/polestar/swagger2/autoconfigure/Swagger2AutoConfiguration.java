@@ -1,5 +1,6 @@
 package com.haier.polestar.swagger2.autoconfigure;
 
+import com.github.xiaoymin.swaggerbootstrapui.annotations.EnableSwaggerBootstrapUI;
 import com.haier.polestar.swagger2.properties.Swagger2Properties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -12,6 +13,7 @@ import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.Contact;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 /**
  * swagger2自动配置类
@@ -19,8 +21,10 @@ import springfox.documentation.spring.web.plugins.Docket;
  * @author panxiaole
  * @date 2019-05-29
  */
+@EnableSwagger2
+@EnableSwaggerBootstrapUI
 @Import(Swagger2Properties.class)
-@ConditionalOnProperty(name = "swagger.enable", havingValue = "true")
+@ConditionalOnProperty(name = "swagger.enable", havingValue = "true", matchIfMissing = true)
 public class Swagger2AutoConfiguration {
 
 	@Autowired

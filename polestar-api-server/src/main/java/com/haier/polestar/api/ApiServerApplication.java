@@ -13,7 +13,7 @@ import org.springframework.context.annotation.ComponentScan;
  * api汇总服务启动类
  *
  * @author panxiaole
- * @Date 2019-05-08 14:10
+ * @date 2019-05-08 14:10
  */
 @EnableEurekaClient
 @EnableDiscoveryClient

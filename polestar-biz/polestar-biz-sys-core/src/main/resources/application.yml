@@ -26,10 +26,6 @@ mybatis-plus:
       logic-not-delete-value: 0 # 逻辑未删除值(默认为 0)
 
 swagger:
-  basic:
-    enable: true
-    username: admin
-    password: admin
   enable: true
   title: 系统管理
   description: 系统管理模块接口文档

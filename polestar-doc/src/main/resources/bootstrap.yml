@@ -1,0 +1,24 @@
+server:
+  port: 9999
+
+spring:
+  application:
+    name: polestar-doc
+
+# eureka配置
+eureka:
+  instance:
+    instance-id: ${spring.application.name}
+    prefer-ip-address: true
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: ${eureka.server.zone}
+
+swagger:
+  basic:
+    enable: true
+    username: admin
+    password: admin
+  enable: true

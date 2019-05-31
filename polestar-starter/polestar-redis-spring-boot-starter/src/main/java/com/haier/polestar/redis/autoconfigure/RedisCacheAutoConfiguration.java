@@ -12,7 +12,6 @@ import org.springframework.cache.interceptor.CacheErrorHandler;
 import org.springframework.cache.interceptor.KeyGenerator;
 import org.springframework.cache.interceptor.SimpleCacheErrorHandler;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.cache.RedisCacheConfiguration;
 import org.springframework.data.redis.cache.RedisCacheWriter;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
@@ -28,10 +27,10 @@ import java.time.Duration;
  * @author panxiaole
  * @date 2019-04-03
  */
-@SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
 @Slf4j
 @EnableCaching(proxyTargetClass = true)
 @EnableConfigurationProperties(RedisProperties.class)
+@SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
 public class RedisCacheAutoConfiguration extends CachingConfigurerSupport {
 
 	@Autowired
