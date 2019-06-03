@@ -109,7 +109,7 @@
                 <artifactId>mybatis-plus-annotation</artifactId>
                 <version>${mybatis-plus.version}</version>
             </dependency>
-            <!--sgagger2-->
+            <!--swagger2-->
             <dependency>
                 <groupId>io.springfox</groupId>
                 <artifactId>springfox-swagger2</artifactId>
@@ -260,7 +260,7 @@
         <developer>
             <name>潘小乐</name>
             <email>panxiaole@haier.com</email>
-            <organization>Haier-日日顺物流</organization>
+            <organization>Haier 日日顺物流</organization>
         </developer>
     </developers>
 </project>
