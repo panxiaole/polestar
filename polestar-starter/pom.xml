@@ -19,6 +19,7 @@
         <module>polestar-log-spring-boot-starter</module>
         <module>polestar-redis-spring-boot-starter</module>
         <module>polestar-swagger2-spring-boot-starter</module>
+        <module>polestar-auth-spring-boot-stater</module>
     </modules>
 
 

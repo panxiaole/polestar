@@ -17,7 +17,7 @@
         <module>polestar-api-server</module>
         <module>polestar-monitor</module>
         <module>polestar-biz</module>
-        <module>polestar-zuul</module>
+        <module>polestar-gateway</module>
         <module>polestar-doc</module>
     </modules>
 
@@ -36,6 +36,7 @@
         <swagger.version>1.5.22</swagger.version>
         <swagger2.version>2.9.2</swagger2.version>
         <swagger-bootstrap-ui.version>1.9.3</swagger-bootstrap-ui.version>
+        <jjwt.version>0.9.1</jjwt.version>
         <docker.baseImage>openjdk:8-jre-alpine</docker.baseImage>
         <docker.volumes>/tmp</docker.volumes>
         <docker.image.prefix>polestar</docker.image.prefix>
@@ -136,6 +137,12 @@
                 <artifactId>swagger-bootstrap-ui</artifactId>
                 <version>${swagger-bootstrap-ui.version}</version>
             </dependency>
+            <!--jwt-->
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt</artifactId>
+                <version>${jjwt.version}</version>
+            </dependency>
 
             <!--project modules-->
             <dependency>
@@ -196,10 +203,12 @@
                 <plugin>
                     <groupId>org.springframework.boot</groupId>
                     <artifactId>spring-boot-maven-plugin</artifactId>
+                    <version>${spring-boot.version}</version>
                     <executions>
                         <execution>
                             <goals>
                                 <goal>repackage</goal>
+                                <goal>build-info</goal>
                             </goals>
                         </execution>
                     </executions>

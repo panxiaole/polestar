@@ -1,23 +1,23 @@
 server:
-  port: 8888
+  port: 9527
 
 spring:
   application:
-    name: polestar-biz-sys
+    name: polestar-gateway
 
 eureka:
   instance:
     instance-id: ${spring.application.name}
     prefer-ip-address: true
-    lease-renewal-interval-in-seconds: 10
-    metadata-map:
-      startup: ${random.int}
   client:
-    fetch-registry: true
     register-with-eureka: true
-    registry-fetch-interval-seconds: 5
+    fetch-registry: true
     service-url:
       defaultZone: ${eureka.server.zone}
+
+zuul:
+  retryable: false
+  ssl-hostname-validation-enabled: false
 
 management:
   server:

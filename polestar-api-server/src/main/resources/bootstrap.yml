@@ -4,15 +4,6 @@ server:
 spring:
   application:
     name: polestar-api-server
-  # spring boot admin ui
-  boot:
-    admin:
-      client:
-        url: ${springboot.admin.hostname}
-        username: ${springboot.admin.username}
-        password: ${springboot.admin.password}
-        instance:
-          prefer-ip: true
 
 # eureka配置
 eureka:

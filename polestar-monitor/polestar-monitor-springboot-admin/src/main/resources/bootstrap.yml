@@ -1,0 +1,41 @@
+server:
+  port: ${springboot.admin.port}
+
+spring:
+  application:
+    name: spring-boot-admin-server
+  security:
+    user:
+      name: ${springboot.admin.username}
+      password: ${springboot.admin.password}
+  mail:
+    host: smtp.qq.com
+    username: 626840495@qq.com
+    password: jcqxblenbclubbhg
+    properties:
+      mail:
+        debug: false
+        smtp:
+          auth: true
+          ssl:
+            enable: true
+          # 从任何状态到up状态都不要发邮件通知
+          ignore-changes: "*:UP"
+  boot:
+    admin:
+      notify:
+        mail:
+          from: 626840495@qq.com
+          to: 18561312767@163.com
+
+eureka:
+  instance:
+    instance-id: ${spring.application.name}
+    prefer-ip-address: true
+    lease-renewal-interval-in-seconds: 10
+  client:
+    fetch-registry: true
+    register-with-eureka: false
+    registry-fetch-interval-seconds: 5
+    service-url:
+      defaultZone: ${eureka.server.zone}

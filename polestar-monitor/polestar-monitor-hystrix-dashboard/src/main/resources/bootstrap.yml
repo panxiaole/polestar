@@ -4,3 +4,22 @@ server:
 spring:
   application:
     name: hyxtrix-dashboard
+
+eureka:
+  instance:
+    instance-id: ${spring.application.name}
+    prefer-ip-address: true
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: ${eureka.server.zone}
+
+
+turbine:
+  # 需要聚合的服务名
+  app-config: polestar-api-server,polestar-gateway
+  aggregator:
+    # turbine聚集数据的粒度
+    clusterConfig: default
+  clusterNameExpression: new String("default")

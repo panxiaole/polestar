@@ -1,4 +1,4 @@
-package com.github.panxiaole.polestar.zuul.polestar.zuul;
+package com.github.panxiaole.polestar.gateway;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -14,10 +14,10 @@ import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
 @EnableZuulProxy
 @EnableEurekaClient
 @SpringBootApplication
-public class ZuulApplication {
+public class GatewayApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(ZuulApplication.class, args);
+		SpringApplication.run(GatewayApplication.class, args);
 	}
 
 }

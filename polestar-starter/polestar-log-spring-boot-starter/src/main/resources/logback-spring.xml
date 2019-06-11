@@ -6,10 +6,12 @@
 <configuration scan="true" scanPeriod="60 seconds" debug="false">
 	<!--======================================= 本地变量 ======================================== -->
 	<!--应用名称 请将spring.application.name定义在bootstrap.yml中,否则在项目启动时无法获取值-->
-	<springProperty name="APP_NAME" scope="context" source="spring.application.name" defaultValue="polestar"/>
+	<springProperty name="APP_NAME" scope="context" source="spring.application.name" defaultValue="app"/>
+	<springProperty name="APP_ENV" scope="context" source="spring.profiles.active" defaultValue="dev"/>
 	<springProperty name="LOG_MAX_HISTORY" scope="context" source="log.max.history" defaultValue="30" />
 	<springProperty name="LOG_MAX_FILE_SIZE" scope="context" source="log.max.file.size" defaultValue="50MB" />
-	<springProperty name="LOG_HOME" scope="context" source="log.home" defaultValue="${HOME}/logs/${APP_NAME}/" />
+	<springProperty name="LOG_HOME" scope="context" source="log.home" defaultValue="${HOME}/logs/${APP_NAME}/${APP_ENV}" />
+	<springProperty name="LOG_FILE" scope="context" source="logging.file" defaultValue="${LOG_HOME}/${APP_NAME}.log" />
 	<springProperty name="LOG_CHARSET" scope="context" source="log.charset" defaultValue="UTF-8" />
 	<springProperty name="LOG_LEVEL_DEV" scope="context" source="log.level.DEV" defaultValue="INFO" />
 	<springProperty name="LOG_LEVEL_PROD" scope="context" source="log.level.prod" defaultValue="WARN" />
@@ -38,7 +40,7 @@
 
 	<!-- 按照每天生成日志文件：主项目日志 -->
 	<appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-		<file>${LOG_HOME}/${APP_NAME}.log</file>
+		<file>${LOG_FILE}</file>
 		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
 			<!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符 -->
 			<pattern>${FILE_LOG_PATTERN}</pattern>
