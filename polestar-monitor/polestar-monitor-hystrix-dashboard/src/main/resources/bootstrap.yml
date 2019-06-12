@@ -1,9 +1,9 @@
 server:
-  port: ${hyxtrix.dashboard.server.port}
+  port: ${hystrix.dashboard.server.port}
 
 spring:
   application:
-    name: hyxtrix-dashboard
+    name: hystrix-dashboard
 
 eureka:
   instance:
