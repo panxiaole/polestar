@@ -27,6 +27,18 @@
             <artifactId>spring-boot-starter-cache</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-aop</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-extension</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.github.panxiaole</groupId>
+            <artifactId>polestar-redis-annotation</artifactId>
+        </dependency>
+        <dependency>
             <groupId>com.github.panxiaole</groupId>
             <artifactId>polestar-common</artifactId>
         </dependency>

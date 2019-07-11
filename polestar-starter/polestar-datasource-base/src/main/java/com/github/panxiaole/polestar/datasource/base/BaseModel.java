@@ -25,7 +25,7 @@ public abstract class BaseModel extends Model {
 	 * 主键
 	 */
 	@ApiModelProperty("主键")
-	@TableId(value = "ID", type= IdType.AUTO)
+	@TableId(value = "ID", type= IdType.ID_WORKER)
 	protected Long id;
 
 	/**

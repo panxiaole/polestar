@@ -2,7 +2,9 @@ package com.github.panxiaole.polestar.biz.sys.model;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.github.panxiaole.polestar.biz.sys.service.DictService;
 import com.github.panxiaole.polestar.datasource.base.BaseModel;
+import com.github.panxiaole.polestar.redis.annotation.MapValue;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -110,5 +112,17 @@ public class User extends BaseModel {
 	@ApiModelProperty("新密码")
 	@TableField(exist = false)
 	private String newPassword;
+
+	/**
+	 * 用户类型
+	 */
+	@ApiModelProperty("用户类型")
+	@TableField("TYPE")
+	private Long type;
+
+
+	@MapValue(bean = DictService.class, method = "getById", source = "type", target = "value")
+	@TableField(exist = false)
+	private String typeName;
 
 }

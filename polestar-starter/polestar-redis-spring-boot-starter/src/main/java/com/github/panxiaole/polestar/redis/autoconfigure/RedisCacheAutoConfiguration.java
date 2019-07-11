@@ -1,5 +1,7 @@
 package com.github.panxiaole.polestar.redis.autoconfigure;
 
+import com.github.panxiaole.polestar.redis.aspect.MapValueAspect;
+import com.github.panxiaole.polestar.redis.service.MapValueService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.data.redis.RedisProperties;
@@ -13,6 +15,7 @@ import org.springframework.cache.interceptor.KeyGenerator;
 import org.springframework.cache.interceptor.SimpleCacheErrorHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.data.redis.cache.RedisCacheConfiguration;
 import org.springframework.data.redis.cache.RedisCacheWriter;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
@@ -23,7 +26,7 @@ import org.springframework.data.redis.serializer.RedisSerializationContext;
 import java.time.Duration;
 
 /**
- * Redis缓存配置
+ * Redis缓存自动配置
  *
  * @author panxiaole
  * @date 2019-04-03
@@ -31,6 +34,7 @@ import java.time.Duration;
 @Slf4j
 @Configuration
 @EnableCaching(proxyTargetClass = true)
+@Import({MapValueAspect.class, MapValueService.class})
 @EnableConfigurationProperties(RedisProperties.class)
 public class RedisCacheAutoConfiguration extends CachingConfigurerSupport {
 

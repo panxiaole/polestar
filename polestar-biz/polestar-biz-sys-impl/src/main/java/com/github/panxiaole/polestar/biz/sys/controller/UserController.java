@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Api(tags = "用户管理")
 @RestController
 @RequestMapping("/api/users")
-@CacheConfig(cacheNames = "users")
+@CacheConfig(cacheNames = "user")
 public class UserController extends BaseController<User, UserService> {
 
 	@Autowired
@@ -38,7 +38,7 @@ public class UserController extends BaseController<User, UserService> {
 	 */
 	@ApiOperation(value = "根据用户名查询用户信息")
 	@GetMapping("/username/{username}")
-	@Cacheable(cacheNames = "users::username", key = "#username")
+	@Cacheable(cacheNames = "user::username", key = "#username")
 	@CacheExpire(30)
 	public User findByUsername(@PathVariable String username) {
 		return userService.findByUsername(username);
@@ -52,7 +52,7 @@ public class UserController extends BaseController<User, UserService> {
 	 */
 	@ApiOperation(value = "根据手机号查询用户信息")
 	@GetMapping("/mobile/{mobile}")
-	@Cacheable(cacheNames = "users::mobile", key = "#mobile")
+	@Cacheable(cacheNames = "user::mobile", key = "#mobile")
 	@CacheExpire(30)
 	public User findByMobile(@PathVariable String mobile) {
 		return userService.findByMobile(mobile);
