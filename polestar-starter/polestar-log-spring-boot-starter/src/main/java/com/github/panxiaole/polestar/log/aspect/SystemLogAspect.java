@@ -6,6 +6,7 @@ import com.github.panxiaole.polestar.log.annotation.SystemLog;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -29,7 +30,7 @@ import java.util.Arrays;
 @Profile({"dev", "test"})
 public class SystemLogAspect {
 
-	private static final Logger log = org.slf4j.LoggerFactory.getLogger(SystemLogAspect.class);
+	private static final Logger log = LoggerFactory.getLogger(SystemLogAspect.class);
 	/**
 	 * 开始时间
 	 */

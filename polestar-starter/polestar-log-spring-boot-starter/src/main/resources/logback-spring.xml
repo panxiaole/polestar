@@ -13,7 +13,7 @@
 	<springProperty name="LOG_HOME" scope="context" source="log.home" defaultValue="${HOME}/logs/${APP_NAME}/${APP_ENV}" />
 	<springProperty name="LOG_FILE" scope="context" source="logging.file" defaultValue="${LOG_HOME}/${APP_NAME}.log" />
 	<springProperty name="LOG_CHARSET" scope="context" source="log.charset" defaultValue="UTF-8" />
-	<springProperty name="LOG_LEVEL_DEV" scope="context" source="log.level.DEV" defaultValue="INFO" />
+	<springProperty name="LOG_LEVEL_DEV" scope="context" source="log.level.dev" defaultValue="INFO" />
 	<springProperty name="LOG_LEVEL_PROD" scope="context" source="log.level.prod" defaultValue="WARN" />
 
 	<!-- ===========================彩色日志依赖的渲染类============================================ -->
@@ -88,7 +88,7 @@
 	<logger name="org.springframework" level="WARN" />
 	<logger name="freemarker" level="WARN" />
 	<logger name="org.hibernate.SQL" level="DEBUG" />
-	<logger name="com.github.panxiaole.polestar.starter.log.util" level="INFO" addtivity="false">
+	<logger name="com.github.panxiaole.polestar.log.util" level="INFO" addtivity="false">
 		<appender-ref ref="POINT_ASYNC" />
 	</logger>
 
