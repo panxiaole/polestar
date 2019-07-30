@@ -1,4 +1,4 @@
-package com.github.panxiaole.polestar.common.util;
+package com.github.panxiaole.polestar.common.utils;
 
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;

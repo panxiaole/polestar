@@ -1,6 +1,4 @@
-package com.github.panxiaole.polestar.common.util;
-
-import org.springframework.util.StringUtils;
+package com.github.panxiaole.polestar.common.utils;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.BufferedReader;
@@ -38,19 +36,19 @@ public class IpUtil {
 		String ip = LOCALHOST_IPV4;
 		if (request != null) {
 			ip = request.getHeader("x-forwarded-for");
-			if (StringUtils.isEmpty(ip) || UNKNOWN.equalsIgnoreCase(ip)) {
+			if (StringUtil.isEmpty(ip) || UNKNOWN.equalsIgnoreCase(ip)) {
 				ip = request.getHeader("Proxy-Client-IP");
 			}
-			if (StringUtils.isEmpty(ip) || UNKNOWN.equalsIgnoreCase(ip)) {
+			if (StringUtil.isEmpty(ip) || UNKNOWN.equalsIgnoreCase(ip)) {
 				ip = request.getHeader("WL-Proxy-Client-IP");
 			}
-			if (StringUtils.isEmpty(ip) || UNKNOWN.equalsIgnoreCase(ip)) {
+			if (StringUtil.isEmpty(ip) || UNKNOWN.equalsIgnoreCase(ip)) {
 				ip = request.getHeader("HTTP_CLIENT_IP");
 			}
-			if (StringUtils.isEmpty(ip) || UNKNOWN.equalsIgnoreCase(ip)) {
+			if (StringUtil.isEmpty(ip) || UNKNOWN.equalsIgnoreCase(ip)) {
 				ip = request.getHeader("HTTP_X_FORWARDED_FOR");
 			}
-			if (StringUtils.isEmpty(ip) || UNKNOWN.equalsIgnoreCase(ip)) {
+			if (StringUtil.isEmpty(ip) || UNKNOWN.equalsIgnoreCase(ip)) {
 				ip = request.getRemoteAddr();
 				// request.getRemoteAddr() 获取客户端的 IP 地址在大部分情况下都是有效的
 				// 但是在通过了 Apache，Squid 等反向代理软件就不能获取到客户端的真实 IP 地址
@@ -67,7 +65,7 @@ public class IpUtil {
 			}
 			// 多个 IP 中取第一个
 			final String ch = ",";
-			if (!StringUtils.isEmpty(ip) && ip.contains(ch)) {
+			if (!StringUtil.isEmpty(ip) && ip.contains(ch)) {
 				ip = ip.substring(0, ip.indexOf(ch));
 			}
 		}

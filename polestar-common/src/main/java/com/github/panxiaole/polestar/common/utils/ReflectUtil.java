@@ -1,6 +1,5 @@
-package com.github.panxiaole.polestar.common.util;
+package com.github.panxiaole.polestar.common.utils;
 
-import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,8 +33,8 @@ public class ReflectUtil {
 	@SuppressWarnings("unchecked")
 	public static <E> E invokeGetter(Object obj, String propertyName) {
 		Object object = obj;
-		for (String name : StringUtils.split(propertyName, ".")) {
-			String getterMethodName = GETTER_PREFIX + StringUtils.capitalize(name);
+		for (String name : StringUtil.split(propertyName, ".")) {
+			String getterMethodName = GETTER_PREFIX + StringUtil.capitalize(name);
 			object = invokeMethod(object, getterMethodName, new Class[]{}, new Object[]{});
 		}
 		return (E) object;

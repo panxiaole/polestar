@@ -3,7 +3,7 @@ package com.github.panxiaole.polestar.common.exception;
 import com.github.panxiaole.polestar.common.response.Result;
 import com.github.panxiaole.polestar.common.response.ResultCode;
 import com.github.panxiaole.polestar.common.response.ResultGenerator;
-import com.github.panxiaole.polestar.common.util.ExceptionUtil;
+import com.github.panxiaole.polestar.common.utils.ExceptionUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpStatus;

@@ -1,7 +1,7 @@
 package com.github.panxiaole.polestar.log.aspect;
 
 import com.github.panxiaole.polestar.common.singleton.JacksonMapper;
-import com.github.panxiaole.polestar.common.util.IpUtil;
+import com.github.panxiaole.polestar.common.utils.IpUtil;
 import com.github.panxiaole.polestar.log.annotation.SystemLog;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.*;

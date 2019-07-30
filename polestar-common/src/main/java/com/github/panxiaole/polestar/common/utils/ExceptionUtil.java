@@ -1,4 +1,4 @@
-package com.github.panxiaole.polestar.common.util;
+package com.github.panxiaole.polestar.common.utils;
 
 import lombok.extern.slf4j.Slf4j;
 

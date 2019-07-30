@@ -32,11 +32,12 @@
         <spring-cloud.version>Greenwich.RELEASE</spring-cloud.version>
         <spring-cloud-alibaba.version>0.2.1.RELEASE</spring-cloud-alibaba.version>
         <over-slf4j.version>1.7.25</over-slf4j.version>
-        <mybatis-plus.version>3.1.1</mybatis-plus.version>
+        <mybatis-plus.version>3.1.2</mybatis-plus.version>
         <swagger.version>1.5.22</swagger.version>
         <swagger2.version>2.9.2</swagger2.version>
         <swagger-bootstrap-ui.version>1.9.3</swagger-bootstrap-ui.version>
         <jjwt.version>0.9.1</jjwt.version>
+        <easypoi.version>4.1.0</easypoi.version>
         <docker.baseImage>openjdk:8-jre-alpine</docker.baseImage>
         <docker.volumes>/tmp</docker.volumes>
         <docker.image.prefix>polestar</docker.image.prefix>
@@ -142,6 +143,27 @@
                 <groupId>io.jsonwebtoken</groupId>
                 <artifactId>jjwt</artifactId>
                 <version>${jjwt.version}</version>
+            </dependency>
+            <!--easy poi-->
+            <dependency>
+                <groupId>cn.afterturn</groupId>
+                <artifactId>easypoi-spring-boot-starter</artifactId>
+                <version>${easypoi.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.afterturn</groupId>
+                <artifactId>easypoi-base</artifactId>
+                <version>${easypoi.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.afterturn</groupId>
+                <artifactId>easypoi-web</artifactId>
+                <version>${easypoi.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.afterturn</groupId>
+                <artifactId>easypoi-annotation</artifactId>
+                <version>${easypoi.version}</version>
             </dependency>
 
             <!--project modules-->
