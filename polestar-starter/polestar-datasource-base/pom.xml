@@ -30,6 +30,10 @@
             <artifactId>easypoi-base</artifactId>
         </dependency>
         <dependency>
+            <groupId>cn.afterturn</groupId>
+            <artifactId>easypoi-web</artifactId>
+        </dependency>
+        <dependency>
             <groupId>com.github.panxiaole</groupId>
             <artifactId>polestar-common</artifactId>
         </dependency>

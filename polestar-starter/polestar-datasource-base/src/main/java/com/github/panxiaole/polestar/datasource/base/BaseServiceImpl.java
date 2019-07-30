@@ -1,7 +1,9 @@
 package com.github.panxiaole.polestar.datasource.base;
 
+import cn.afterturn.easypoi.entity.vo.NormalExcelConstants;
 import cn.afterturn.easypoi.excel.ExcelExportUtil;
 import cn.afterturn.easypoi.excel.entity.ExportParams;
+import cn.afterturn.easypoi.view.PoiBaseView;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -25,11 +27,15 @@ import com.github.panxiaole.polestar.datasource.annotation.QueryCondition;
 import com.github.panxiaole.polestar.redis.annotation.NeedMapValue;
 import io.swagger.annotations.ApiModel;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.springframework.ui.ModelMap;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.*;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.Serializable;
 import java.lang.reflect.Field;
-import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -106,47 +112,53 @@ public class BaseServiceImpl<M extends BaseMapper<T>, T> extends ServiceImpl<M, 
 	}
 
 	/**
-	 * 导出所有符合条件的记录
+	 * 构建工作表
 	 *
 	 * @param exportParams 导出参数
 	 * @param list         数据集合
 	 * @return Workbook
 	 */
 	@Override
-	public Workbook export(ExportParams exportParams, List<T> list) {
+	public Workbook buildWorkbook(ExportParams exportParams, List<T> list) {
 		return ExcelExportUtil.exportExcel(exportParams, pojoClass, list);
 	}
 
 	/**
 	 * 下载导出文件
 	 *
-	 * @param workbook 工作表
-	 * @param response 响应
-	 * @throws IOException
+	 * @param list         数据列表
+	 * @param exportParams 导出参数
+	 * @param map          模型
+	 * @param request      请求
+	 * @param response     响应
 	 */
 	@Override
-	public void downloadExportFile(Workbook workbook, HttpServletResponse response) throws IOException {
-		response.setHeader("contentType", "application/x-download");
-		response.setHeader("Content-Disposition",
-				String.format("attachment;filename*=utf-8'zh_cn'%s.xls", URLEncoder.encode(this.generateExportFileName(), "UTF-8")));
-		workbook.write(response.getOutputStream());
+	public void downloadExportFile(List<T> list, ExportParams exportParams, ModelMap map, HttpServletRequest request, HttpServletResponse response) {
+		map.put(NormalExcelConstants.DATA_LIST, list);
+		map.put(NormalExcelConstants.CLASS, pojoClass);
+		map.put(NormalExcelConstants.PARAMS, exportParams);
+		map.put(NormalExcelConstants.FILE_NAME, this.generateExportFileName());
+		PoiBaseView.render(map, request, response, NormalExcelConstants.EASYPOI_EXCEL_VIEW);
 	}
 
 	/**
 	 * 存储导出文件
-	 * @param workbook      工作表
-	 * @return              存储结果
+	 *
+	 * @param exportParams 导出参数
+	 * @param list         数据集合
+	 * @return 存储结果
 	 * @throws IOException
 	 */
 	@Override
-	public Result<String> saveExportFile(Workbook workbook) throws IOException {
+	public Result<String> saveExportFile(ExportParams exportParams, List<T> list) throws IOException {
+		Workbook workbook = ExcelExportUtil.exportExcel(exportParams, pojoClass, list);
 		String filePath = System.getProperty("user.home")
 				+ File.separator + "export"
 				+ File.separator + pojoClass.getSimpleName();
 		String fileName = this.generateExportFileName();
 		File directory = new File(filePath);
-		if (!directory.exists()) {
-			directory.mkdirs();
+		if (!directory.exists() && !directory.mkdirs()) {
+			return ResultGenerator.failed("导出失败,无法创建目录");
 		}
 		FileOutputStream fos = new FileOutputStream(filePath + File.separator + fileName);
 		workbook.write(fos);
@@ -184,7 +196,7 @@ public class BaseServiceImpl<M extends BaseMapper<T>, T> extends ServiceImpl<M, 
 				if (field.get(model) == null) {
 					continue;
 				}
-				if(tableField.exist()) {
+				if (tableField.exist()) {
 					//实体字段直接用equals构建查询条件
 					wrapper.eq(tableField.value(), field.get(model));
 					continue;

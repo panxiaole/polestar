@@ -8,10 +8,11 @@ import com.github.panxiaole.polestar.common.response.Result;
 import com.github.panxiaole.polestar.log.annotation.SystemLog;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
@@ -82,8 +83,9 @@ public abstract class BaseController<T, S extends BaseService<T>> extends Global
 
 	/**
 	 * 分页查询符合条件的记录
-	 * @param page      分页对象
-	 * @param model     查询条件
+	 *
+	 * @param page  分页对象
+	 * @param model 查询条件
 	 * @return page
 	 */
 	@SystemLog
@@ -95,7 +97,8 @@ public abstract class BaseController<T, S extends BaseService<T>> extends Global
 
 	/**
 	 * 查询所有符合条件的记录
-	 * @param model     查询条件
+	 *
+	 * @param model 查询条件
 	 * @return list
 	 */
 	@SystemLog
@@ -106,31 +109,36 @@ public abstract class BaseController<T, S extends BaseService<T>> extends Global
 	}
 
 	/**
-	 * 导出并下载所有符合条件的记录
-	 * @param exportParams  导出参数
-	 * @param model         查询条件
+	 * 导出并下载
+	 *
+	 * @param exportParams 导出参数
+	 * @param model        查询条件
+	 * @param map          模型
+	 * @param request      请求
+	 * @param response     响应
 	 */
 	@SystemLog
-	@ApiOperation("下载导出记录")
+	@ApiOperation("导出并下载")
 	@GetMapping("/exportAndDownload")
-	public void exportAndDownload(@ApiParam("导出参数") ExportParams exportParams, @ApiParam("查询条件") T model, HttpServletResponse response) throws IOException {
+	public void exportAndDownload(@ApiParam("导出参数") ExportParams exportParams, @ApiParam("查询条件") T model,
+	                              ModelMap map, HttpServletRequest request, HttpServletResponse response) {
 		List<T> list = baseService.selectList(model);
-		Workbook workbook = baseService.export(exportParams, list);
-		baseService.downloadExportFile(workbook, response);
+		baseService.downloadExportFile(list, exportParams, map, request, response);
 	}
 
 	/**
-	 * 导出并存储所有符合条件的记录
-	 * @param exportParams  导出参数
-	 * @param model         查询条件
-	 * @return              存储结果
+	 * 导出并存储
+	 *
+	 * @param exportParams 导出参数
+	 * @param model        查询条件
+	 * @return 存储结果
 	 */
 	@SystemLog
-	@ApiOperation("存储导出记录")
+	@ApiOperation("导出并储存")
 	@GetMapping("/exportAndSave")
 	public Result<String> exportAndSave(@ApiParam("导出参数") ExportParams exportParams, @ApiParam("查询条件") T model) throws IOException {
 		List<T> list = baseService.selectList(model);
-		Workbook workbook = baseService.export(exportParams, list);
-		return baseService.saveExportFile(workbook);
+		return baseService.saveExportFile(exportParams, list);
 	}
+
 }

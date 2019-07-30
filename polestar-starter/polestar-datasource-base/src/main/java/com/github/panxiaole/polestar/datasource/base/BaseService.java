@@ -9,7 +9,9 @@ import com.github.panxiaole.polestar.common.lock.DistributedLock;
 import com.github.panxiaole.polestar.common.response.Result;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.ModelMap;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.io.IOException;
@@ -69,30 +71,35 @@ public interface BaseService<T> extends IService<T> {
 	IPage<T> selectPage(Page<T> page, T model);
 
 	/**
-	 * 导出所有符合条件的记录
+	 * 构建工作表
 	 *
 	 * @param exportParams 导出参数
 	 * @param list         数据集合
 	 * @return result
 	 * @throws IOException
 	 */
-	Workbook export(ExportParams exportParams, List<T> list);
+	Workbook buildWorkbook(ExportParams exportParams, List<T> list);
 
 	/**
 	 * 下载导出文件
-	 * @param workbook      工作表
-	 * @param response      响应
-	 * @throws IOException
+	 *
+	 * @param list         数据列表
+	 * @param exportParams 导出参数
+	 * @param map          模型
+	 * @param request      请求
+	 * @param response     响应
 	 */
-	void downloadExportFile(Workbook workbook, HttpServletResponse response) throws IOException;
+	void downloadExportFile(List<T> list, ExportParams exportParams, ModelMap map, HttpServletRequest request, HttpServletResponse response);
 
 	/**
 	 * 存储导出文件
-	 * @param workbook      工作表
-	 * @return              存储结果
+	 *
+	 * @param exportParams 导出参数
+	 * @param list         数据集合
+	 * @return 存储结果
 	 * @throws IOException
 	 */
-	Result<String> saveExportFile(Workbook workbook) throws IOException;
+	Result<String> saveExportFile(ExportParams exportParams, List<T> list) throws IOException;
 
 	/**
 	 * 幂等性新增记录
