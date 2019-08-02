@@ -7,6 +7,7 @@ import com.github.panxiaole.polestar.redis.annotation.CacheExpire;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
@@ -14,9 +15,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 /**
  * 用户管理
+ *
  * @author panxiaole
  * @date 2019-05-08
  */
@@ -58,4 +61,9 @@ public class UserController extends BaseController<User, UserService> {
 		return userService.findByMobile(mobile);
 	}
 
+	@GetMapping("/upload")
+	public ModelAndView upload(@NotNull ModelAndView model) {
+		model.setViewName("upload");
+		return model;
+	}
 }

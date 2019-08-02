@@ -128,6 +128,7 @@ public class User extends BaseModel {
 	 * 用户类型
 	 */
 	@ApiModelProperty("用户类型")
+	@Excel(name = "用户类型编码", orderNum = "9", isColumnHidden = true)
 	@TableField("TYPE")
 	private Long type;
 

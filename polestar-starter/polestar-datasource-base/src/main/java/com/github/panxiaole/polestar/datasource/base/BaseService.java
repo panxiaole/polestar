@@ -10,6 +10,7 @@ import com.github.panxiaole.polestar.common.response.Result;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -76,7 +77,6 @@ public interface BaseService<T> extends IService<T> {
 	 * @param exportParams 导出参数
 	 * @param list         数据集合
 	 * @return result
-	 * @throws IOException
 	 */
 	Workbook buildWorkbook(ExportParams exportParams, List<T> list);
 
@@ -89,7 +89,8 @@ public interface BaseService<T> extends IService<T> {
 	 * @param request      请求
 	 * @param response     响应
 	 */
-	void downloadExportFile(List<T> list, ExportParams exportParams, ModelMap map, HttpServletRequest request, HttpServletResponse response);
+	void downloadExportFile(List<T> list, ExportParams exportParams, ModelMap map,
+	                        HttpServletRequest request, HttpServletResponse response);
 
 	/**
 	 * 存储导出文件
@@ -97,9 +98,47 @@ public interface BaseService<T> extends IService<T> {
 	 * @param exportParams 导出参数
 	 * @param list         数据集合
 	 * @return 存储结果
-	 * @throws IOException
+	 * @throws IOException IOException
 	 */
 	Result<String> saveExportFile(ExportParams exportParams, List<T> list) throws IOException;
+
+	/**
+	 * 下载导入模板
+	 * 需要将模板放入resources/import目录下
+	 * 命名规则为@ApiModel中的value + 导入模板.xls
+	 *
+	 * @param response 响应
+	 * @throws IOException IOException
+	 */
+	void downloadImportTemplate(HttpServletResponse response) throws IOException;
+
+	/**
+	 * 解析上传文件并返回数据集合
+	 *
+	 * @param file 上传文件
+	 * @return list
+	 * @throws IOException IOException
+	 */
+	List<T> analyzeImportTemplate(MultipartFile file) throws IOException;
+
+	/**
+	 * 模板导入
+	 *
+	 * @param file 上传文件
+	 * @return 导入结果
+	 * @throws IOException IOException
+	 */
+	@Transactional(rollbackFor = Exception.class)
+	Result<String> templateImport(MultipartFile file) throws IOException;
+
+	/**
+	 * 导入时填充对某些不需要填写的字段进行自定义填充或处理
+	 * 例如导入用户时对密码进行加密
+	 *
+	 * @param list list
+	 */
+	void fillCustomizedValue(List<T> list);
+
 
 	/**
 	 * 幂等性新增记录

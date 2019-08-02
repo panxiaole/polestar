@@ -11,6 +11,8 @@ import com.github.panxiaole.polestar.redis.annotation.NeedMapValue;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * 用户管理接口实现
  *
@@ -38,6 +40,16 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
 	public IPage<User> selectPage(Page<User> page, User model) {
 		QueryWrapper<User> queryWrapper = this.buildQueryWrapper(model);
 		return super.baseMapper.selectPage(page, queryWrapper);
+	}
+
+	/**
+	 * @param list list
+	 */
+	@Override
+	public void fillCustomizedValue(List<User> list) {
+		for (User user : list) {
+			user.setPassword("123456");
+		}
 	}
 
 }

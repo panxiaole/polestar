@@ -8,9 +8,11 @@ import com.github.panxiaole.polestar.common.response.Result;
 import com.github.panxiaole.polestar.log.annotation.SystemLog;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,6 +25,7 @@ import java.util.List;
  * @author panxiaole
  * @date 2019-05-15
  */
+@Slf4j
 @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
 public abstract class BaseController<T, S extends BaseService<T>> extends GlobalExceptionResolver {
 
@@ -139,6 +142,32 @@ public abstract class BaseController<T, S extends BaseService<T>> extends Global
 	public Result<String> exportAndSave(@ApiParam("导出参数") ExportParams exportParams, @ApiParam("查询条件") T model) throws IOException {
 		List<T> list = baseService.selectList(model);
 		return baseService.saveExportFile(exportParams, list);
+	}
+
+	/**
+	 * 下载导入模板
+	 *
+	 * @param response 响应
+	 * @throws IOException IOException
+	 */
+	@SystemLog
+	@ApiOperation("下载导入模板")
+	@GetMapping("/downloadImportTemplate")
+	public void downloadImportTemplate(HttpServletResponse response) throws IOException {
+		baseService.downloadImportTemplate(response);
+	}
+
+	/**
+	 * 模板导入
+	 *
+	 * @param file 导入文件
+	 * @return 导入结果
+	 */
+	@SystemLog
+	@ApiOperation("模板导入")
+	@PostMapping("/templateImport")
+	public Result<String> templateImport(@RequestParam("file") MultipartFile file) throws IOException {
+		return baseService.templateImport(file);
 	}
 
 }

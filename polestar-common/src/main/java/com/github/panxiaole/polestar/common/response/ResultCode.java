@@ -16,7 +16,7 @@ public enum ResultCode {
 	/**
 	 * 成功请求，但结果不是期望的成功结果
 	 */
-	SUCCEED_REQUEST_FAILED_RESULT(1000, "请求成功，但未获得期望的结果"),
+	SUCCEED_REQUEST_FAILED_RESULT(1000, ""),
 
 	/**
 	 * 查询失败

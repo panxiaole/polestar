@@ -2,7 +2,9 @@ package com.github.panxiaole.polestar.datasource.base;
 
 import cn.afterturn.easypoi.entity.vo.NormalExcelConstants;
 import cn.afterturn.easypoi.excel.ExcelExportUtil;
+import cn.afterturn.easypoi.excel.ExcelImportUtil;
 import cn.afterturn.easypoi.excel.entity.ExportParams;
+import cn.afterturn.easypoi.excel.entity.ImportParams;
 import cn.afterturn.easypoi.view.PoiBaseView;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
@@ -27,15 +29,15 @@ import com.github.panxiaole.polestar.datasource.annotation.QueryCondition;
 import com.github.panxiaole.polestar.redis.annotation.NeedMapValue;
 import io.swagger.annotations.ApiModel;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.util.IOUtils;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.Serializable;
+import java.io.*;
 import java.lang.reflect.Field;
+import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -47,7 +49,7 @@ import java.util.Objects;
  * @author panxiaole
  * @date 2019-04-20
  */
-public class BaseServiceImpl<M extends BaseMapper<T>, T> extends ServiceImpl<M, T> implements BaseService<T> {
+public abstract class BaseServiceImpl<M extends BaseMapper<T>, T> extends ServiceImpl<M, T> implements BaseService<T> {
 
 	protected Class pojoClass = ReflectUtil.getClassGenericType(getClass(), 1);
 
@@ -167,13 +169,85 @@ public class BaseServiceImpl<M extends BaseMapper<T>, T> extends ServiceImpl<M, 
 	}
 
 	/**
+	 * 下载导入模板
+	 *
+	 * @param response
+	 * @throws IOException
+	 */
+	@Override
+	public void downloadImportTemplate(HttpServletResponse response) throws IOException {
+		InputStream inputStream = this.getClass().getResourceAsStream(String.format("/import/%s导入模板.xls", getClassDescription()));
+		response.setHeader("contentType", "application/x-download");
+		response.setHeader("Content-Disposition",
+				String.format("attachment;filename*=utf-8'zh_cn'%s.xls", URLEncoder.encode(String.format("%s导入模板", getClassDescription()), "UTF-8")));
+		IOUtils.copy(inputStream, response.getOutputStream());
+	}
+
+	/**
+	 * 解析上传文件并返回数据集合
+	 *
+	 * @param file 上传文件
+	 * @return list
+	 * @throws IOException IOException
+	 */
+	@Override
+	public List<T> analyzeImportTemplate(MultipartFile file) throws IOException {
+		String fileName = file.getOriginalFilename() + new SimpleDateFormat("yyyyMMddHHmmssSSS").format(new Date());
+		String filePath = "/Users/panxiaole/upload";
+		File dest = new File(filePath + File.separator + fileName);
+		file.transferTo(dest);
+		ImportParams importParams = new ImportParams();
+		importParams.setTitleRows(0);
+		importParams.setHeadRows(1);
+		return ExcelImportUtil.importExcel(dest, ReflectUtil.getClassGenericType(getClass(), 1), importParams);
+	}
+
+	/**
+	 * 模板导入
+	 *
+	 * @param file 上传文件
+	 * @return 导入结果
+	 */
+	@Override
+	public Result<String> templateImport(MultipartFile file) throws IOException {
+		if (file.isEmpty()) {
+			return ResultGenerator.failed("上传失败，请选择文件");
+		}
+		List<T> list = this.analyzeImportTemplate(file);
+		if (list.isEmpty()) {
+			return ResultGenerator.failed("导入失败:未在模板中解析出有效数据");
+		}
+		this.fillCustomizedValue(list);
+		return super.saveBatch(list) ? ResultGenerator.succeed(String.format("成功导入%s条数据", String.valueOf(list.size()))) : ResultGenerator.failed("导入失败");
+	}
+
+	/**
+	 * 导入时填充对某些不需要填写的字段进行自定义填充或处理
+	 * 例如导入用户时对密码进行加密
+	 *
+	 * @param list list
+	 */
+	@Override
+	public void fillCustomizedValue(List<T> list) {
+	}
+
+	/**
+	 * 获取类描述
+	 *
+	 * @return 类描述
+	 */
+	private String getClassDescription() {
+		ApiModel annotation = (ApiModel) pojoClass.getAnnotation(ApiModel.class);
+		return annotation != null ? annotation.value() : null;
+	}
+
+	/**
 	 * 生成导出文件的文件名
 	 *
 	 * @return 文件名
 	 */
 	private String generateExportFileName() {
-		ApiModel annotation = (ApiModel) pojoClass.getAnnotation(ApiModel.class);
-		return (annotation != null ? annotation.value() : pojoClass.getSimpleName()) + new SimpleDateFormat("yyyyMMddHHmmssSSS").format(new Date());
+		return (getClassDescription() != null ? getClassDescription() : pojoClass.getSimpleName()) + new SimpleDateFormat("yyyyMMddHHmmssSSS").format(new Date());
 	}
 
 
