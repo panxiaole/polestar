@@ -10,7 +10,7 @@
 	<springProperty name="APP_ENV" scope="context" source="spring.profiles.active" defaultValue="dev"/>
 	<springProperty name="LOG_MAX_HISTORY" scope="context" source="log.max.history" defaultValue="30" />
 	<springProperty name="LOG_MAX_FILE_SIZE" scope="context" source="log.max.file.size" defaultValue="50MB" />
-	<springProperty name="LOG_HOME" scope="context" source="log.home" defaultValue="${HOME}/logs/${APP_NAME}/${APP_ENV}" />
+	<springProperty name="LOG_HOME" scope="context" source="log.home" defaultValue="./logs/${APP_NAME}/${APP_ENV}" />
 	<springProperty name="LOG_FILE" scope="context" source="logging.file" defaultValue="${LOG_HOME}/${APP_NAME}.log" />
 	<springProperty name="LOG_CHARSET" scope="context" source="log.charset" defaultValue="UTF-8" />
 	<springProperty name="LOG_LEVEL_DEV" scope="context" source="log.level.dev" defaultValue="INFO" />
