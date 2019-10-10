@@ -11,7 +11,7 @@ spring:
   mail:
     host: smtp.qq.com
     username: 626840495@qq.com
-    password: jcqxblenbclubbhg
+    password: ENC(pY620tiZBE9WaWnTHRcb79KfDLLYhsr2ZB5YtQYbvvc=)
     properties:
       mail:
         debug: false
@@ -26,7 +26,8 @@ spring:
       notify:
         mail:
           from: 626840495@qq.com
-          to: 18561312767@163.com
+          to:
+            - 18561312767@163.com
 
 eureka:
   instance:

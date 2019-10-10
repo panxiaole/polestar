@@ -38,6 +38,7 @@
         <swagger-bootstrap-ui.version>1.9.3</swagger-bootstrap-ui.version>
         <jjwt.version>0.9.1</jjwt.version>
         <easypoi.version>4.1.0</easypoi.version>
+        <jasypt.version>2.1.2</jasypt.version>
         <docker.baseImage>openjdk:8-jre-alpine</docker.baseImage>
         <docker.volumes>/tmp</docker.volumes>
         <docker.image.prefix>polestar</docker.image.prefix>
@@ -165,7 +166,12 @@
                 <artifactId>easypoi-annotation</artifactId>
                 <version>${easypoi.version}</version>
             </dependency>
-
+            <!--jasypt-->
+            <dependency>
+                <groupId>com.github.ulisesbocchio</groupId>
+                <artifactId>jasypt-spring-boot-starter</artifactId>
+                <version>${jasypt.version}</version>
+            </dependency>
             <!--project modules-->
             <dependency>
                 <groupId>com.github.panxiaole</groupId>

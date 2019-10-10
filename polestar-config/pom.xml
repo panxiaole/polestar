@@ -14,15 +14,10 @@
     <description>配置中心</description>
 
     <dependencies>
+        <!--jasypt-->
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-configuration-processor</artifactId>
-        </dependency>
-        <!--为了让配置文件可以中的配置项可以联想和自动补全,需引入web starter-->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-            <scope>provided</scope>
+            <groupId>com.github.ulisesbocchio</groupId>
+            <artifactId>jasypt-spring-boot-starter</artifactId>
         </dependency>
     </dependencies>
 
